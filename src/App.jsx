@@ -1,7 +1,8 @@
 import Header from "./components/Header/Header.jsx";
 import DescriptionCto3 from "./components/DescriptionCto3/DescriptionCto3.jsx";
 import ProductSilo from "./components/ProductSilo/ProductSilo.jsx";
-import Sizevars from "./components/SizeVar/SizeVar.jsx";
+import SizeVars from "./components/SizeVar/SizeVar.jsx";
+import ColorVar from "./components/ColorVar/ColorVar.jsx";
 
 function App() {
   return (
@@ -10,7 +11,8 @@ function App() {
       <main className="flex-1">
         <DescriptionCto3 />
         <ProductSilo/>
-        <Sizevars/>
+        <SizeVars />
+        <ColorVar/>
       </main>
     </div>
   );
