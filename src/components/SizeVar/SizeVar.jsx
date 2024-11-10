@@ -1,6 +1,6 @@
 const SizeVars = () => {
   return (
-    <div className="relative w-full min-h-[600px] flex flex-col items-center justify-center py-8 bg-[#F0F3FB]">
+    <div className="relative w-full h-screen flex flex-col items-center justify-center py-8 bg-[#F0F3FB]">
       <div className="relative w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Large shelf - Back */}
         <div className="relative w-full">
