@@ -1,13 +1,15 @@
 import Header from "./components/Header/Header.jsx";
-
+import DescriptionCto3 from "./components/DescriptionCto3/DescriptionCto3.jsx";
 
 function App() {
-
   return (
-    <>
-        <Header/>
-    </>
-  )
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-1">
+        <DescriptionCto3 />
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
