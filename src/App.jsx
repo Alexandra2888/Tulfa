@@ -1,10 +1,11 @@
+import Header from "./components/Header/Header.jsx";
 
 
 function App() {
 
   return (
     <>
-    <div className="text-red-500">hello from tulfa</div>
+        <Header/>
     </>
   )
 }
