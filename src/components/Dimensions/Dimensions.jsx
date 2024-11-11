@@ -3,10 +3,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { ChevronUp, ChevronDown } from "lucide-react";
 import "swiper/css";
 import Title from "../../atoms/Title/Title";
+import Button from "../../atoms/Button/Button";
+import Description from "../../atoms/Description/Description";
+
 
 const dimensionsData = {
-  description:
-    "Give your customers a clear view of how your furniture fits into their space with precise dimensions and scale indicators.",
   slides: [
     {
       id: 1,
@@ -55,7 +56,7 @@ const dimensionsData = {
 
 const Dimensions = () => {
   const [swiper, setSwiper] = React.useState(null);
-  const { slides, description } = dimensionsData;
+  const { slides } = dimensionsData;
   const [currentSlide, setCurrentSlide] = React.useState(0);
 
   const nextSlide = () => {
@@ -101,20 +102,20 @@ const Dimensions = () => {
 
             {/* Navigation Buttons */}
             <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-10">
-              <button
+              <Button
                 onClick={prevSlide}
                 className="border-2 border-white rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-all hover:bg-white/20 active:bg-white/30 touch-manipulation"
                 aria-label="Previous slide"
               >
                 <ChevronUp className="w-5 h-5 md:w-6 md:h-6 text-white" />
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={nextSlide}
                 className="border-2 border-white rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-all hover:bg-white/20 active:bg-white/30 touch-manipulation"
                 aria-label="Next slide"
               >
                 <ChevronDown className="w-5 h-5 md:w-6 md:h-6 text-white" />
-              </button>
+              </Button>
             </div>
             {/* Slide Counter */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-gray-900/75 text-white px-4 py-2 rounded-full text-sm z-10">
@@ -124,9 +125,10 @@ const Dimensions = () => {
         </div>
 
         {/* Description Section */}
-        <p className="text-center py-24 text-[#2A266A] mx-auto font-['SF_Pro_Display'] text-xl xl:text-[1.625rem] font-normal leading-relaxed px-12 xl:px-36 xl:max-w-6xl">
-          {description}
-        </p>
+        <Description
+          text="Give your customers a clear view of how your furniture fits into their space 
+with precise dimensions and scale indicators."
+        />
       </div>
     </section>
   );

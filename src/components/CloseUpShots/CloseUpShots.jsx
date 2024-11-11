@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import GalleryModal from "./GalleryModal";
 import Title from "../../atoms/Title/Title";
 import Description from "../../atoms/Description/Description";
+import Button from "../../atoms/Button/Button";
 
 const CloseUpShots = () => {
     const [scale, setScale] = useState(1);
@@ -47,7 +48,7 @@ const CloseUpShots = () => {
 
             {/* Floating button */}
             <div className="absolute bottom-4 left-[50%] transform -translate-x-1/2">
-              <button
+              <Button
                 onClick={() => setIsModalOpen(true)}
                 className="group flex items-center gap-2 px-3 py-1.5 bg-black/80 hover:bg-black/90 rounded-full text-white text-sm"
               >
@@ -55,7 +56,7 @@ const CloseUpShots = () => {
                 <div className="bg-red-500 rounded-full p-1">
                   <Maximize className="w-3 h-3" />
                 </div>
-              </button>
+              </Button>
             </div>
           </div>
         </div>
