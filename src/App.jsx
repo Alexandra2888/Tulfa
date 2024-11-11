@@ -3,6 +3,7 @@ import DescriptionCto3 from "./components/DescriptionCto3/DescriptionCto3.jsx";
 import ProductSilo from "./components/ProductSilo/ProductSilo.jsx";
 import SizeVars from "./components/SizeVar/SizeVar.jsx";
 import ColorVar from "./components/ColorVar/ColorVar.jsx";
+import FabricVar from "./components/FabricVar/FabricVar.jsx";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
         <DescriptionCto3 />
         <ProductSilo/>
         <SizeVars />
-        <ColorVar/>
+        <ColorVar />
+        <FabricVar/>
       </main>
     </div>
   );
