@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useScrollScale = ({
+export const useScrollScale = ({
   maxScale = 1.2,
   scrollRange = window.innerHeight,
   initialScale = 1,

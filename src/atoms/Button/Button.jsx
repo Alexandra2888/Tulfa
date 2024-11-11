@@ -22,7 +22,7 @@ const Button = ({
 Button.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   style: PropTypes.object,
   "aria-label": PropTypes.string,
 };
