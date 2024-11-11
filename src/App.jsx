@@ -4,6 +4,7 @@ import ProductSilo from "./components/ProductSilo/ProductSilo.jsx";
 import SizeVars from "./components/SizeVar/SizeVar.jsx";
 import ColorVar from "./components/ColorVar/ColorVar.jsx";
 import FabricVar from "./components/FabricVar/FabricVar.jsx";
+import LifeStyle from "./components/LifeStyle/LifeStyle.jsx";
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
         <ProductSilo/>
         <SizeVars />
         <ColorVar />
-        <FabricVar/>
+        <FabricVar />
+        <LifeStyle/>
       </main>
     </div>
   );
