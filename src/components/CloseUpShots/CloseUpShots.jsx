@@ -1,26 +1,21 @@
 import { Maximize } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import GalleryModal from "./GalleryModal";
 import Title from "../../atoms/Title/Title";
 import Description from "../../atoms/Description/Description";
 import Button from "../../atoms/Button/Button";
+import { useScrollScale } from "../../hooks/useScrollScale";
 
 const CloseUpShots = () => {
-    const [scale, setScale] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    useEffect(() => {
-      const handleScroll = () => {
-        const scrollPosition = window.scrollY;
-        const maxScroll = window.innerHeight;
-        const newScale = 1 + Math.min(scrollPosition / maxScroll, 1) * 0.5;
-        setScale(newScale);
-      };
-
-      window.addEventListener("scroll", handleScroll);
-      return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
-
+    const scale = useScrollScale({
+      maxScale: 1.5,
+      scrollRange: window.innerHeight,
+      initialScale: 1,
+      scaleFactor: 0.5,
+    });
+  
   return (
     <div className="relative">
       {/* Header */}

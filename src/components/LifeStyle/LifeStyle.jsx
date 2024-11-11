@@ -1,25 +1,12 @@
-import { useEffect, useState } from "react";
+import { useScrollScale } from "../../hooks/useScrollScale";
 
 const LifestyleScene = () => {
-  const [scale, setScale] = useState(1);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const maxScale = 1.2;
-      const scrollRange = 500;
-
-      const newScale = Math.min(
-        maxScale,
-        1 + (scrollPosition / scrollRange) * (maxScale - 1)
-      );
-
-      setScale(newScale);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+   const scale = useScrollScale({
+     maxScale: 1.2,
+     scrollRange: 500,
+     initialScale: 1,
+     scaleFactor: 0.2,
+   });
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
