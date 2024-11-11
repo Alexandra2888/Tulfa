@@ -1,13 +1,12 @@
 import { X } from "lucide-react";
 import PropTypes from "prop-types";
 
-
 const GalleryModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/30 flex items-start justify-start sm:items-center sm:justify-center">
-          <div className="relative h-content mt-[70%] xl:mt-0 w-[35%] sm:h-auto lg:max-w-[80%] xl:max-w-[1200px] sm:max-h-[90vh] overflow-y-auto bg-white rounded-lg">
+      <div className="relative h-content mt-[70%] xl:mt-0 w-[35%] sm:h-auto lg:max-w-[80%] xl:max-w-[1200px] sm:max-h-[90vh] overflow-y-auto bg-white rounded-lg">
         {/* Header */}
         <div className="sticky top-0 left-0 right-0 flex justify-between items-center p-4 bg-gradient-to-b from-black/50 to-transparent z-10">
           <button onClick={onClose} className="text-white hover:text-gray-300">
