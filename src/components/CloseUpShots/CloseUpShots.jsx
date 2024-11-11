@@ -1,6 +1,7 @@
 import { Maximize } from "lucide-react";
 import { useState, useEffect } from "react";
 import GalleryModal from "./GalleryModal";
+import Title from "../../atoms/Title/Title";
 
 const CloseUpShots = () => {
   const [scale, setScale] = useState(1);
@@ -21,10 +22,8 @@ const CloseUpShots = () => {
   return (
     <section className="relative h-screen">
       {/* Header with centered text */}
-      <div className="py-6 px-4 flex justify-center">
-        <h2 className="py-28 xl:py-24 font-['SF_Pro_Display'] text-5xl xl:text-6xl text-center font-semibold normal-case p-2 bg-gradient-to-r from-[#433E99] to-[#EF4832] bg-clip-text text-transparent relative z-10 bg-white">
-          Close Up Shots
-        </h2>
+      <div className="py-28 xl:py-24 flex justify-center">
+        <Title text="Close Up Shots" />
       </div>
 
       {/* Image container */}
