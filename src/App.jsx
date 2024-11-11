@@ -5,6 +5,7 @@ import SizeVars from "./components/SizeVar/SizeVar.jsx";
 import ColorVar from "./components/ColorVar/ColorVar.jsx";
 import FabricVar from "./components/FabricVar/FabricVar.jsx";
 import LifeStyle from "./components/LifeStyle/LifeStyle.jsx";
+import CloseUpShots from "./components/CloseUpShots/CloseUpShots.jsx";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <SizeVars />
         <ColorVar />
         <FabricVar />
-        <LifeStyle/>
+        <LifeStyle />
+        <CloseUpShots/>
       </main>
     </div>
   );
