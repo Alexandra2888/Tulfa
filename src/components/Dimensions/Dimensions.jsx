@@ -2,6 +2,7 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { ChevronUp, ChevronDown } from "lucide-react";
 import "swiper/css";
+import Title from "../../atoms/Title/Title";
 
 const dimensionsData = {
   description:
@@ -70,12 +71,10 @@ const Dimensions = () => {
   };
 
   return (
-    <section className="relative h-screen bg-white py-12 xl:py-96">
+    <section className="relative h-screen bg-white py-12 ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
         {/* Title Section */}
-        <h2 className="py-28 xl:py-24 font-['SF_Pro_Display'] text-5xl xl:text-6xl text-center font-semibold normal-case p-2 bg-gradient-to-r from-[#433E99] to-[#EF4832] bg-clip-text text-transparent relative z-10 bg-white">
-          Lorem Ipsum
-        </h2>
+        <Title text="Lorem Ipsum" />
 
         {/* Carousel Section */}
         <div className="w-[80%] xl:w-full relative mb-12">

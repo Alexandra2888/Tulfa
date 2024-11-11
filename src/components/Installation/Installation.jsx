@@ -2,6 +2,7 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { ChevronUp, ChevronDown } from "lucide-react";
 import "swiper/css";
+import Title from "../../atoms/Title/Title";
 
 const installationData = {
   description:
@@ -70,13 +71,10 @@ const Installation = () => {
   };
 
   return (
-    <section className="relative h-screen bg-white py-12">
+    <section className="relative bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
         {/* Title Section */}
-        <h2 className="py-28 xl:py-24 font-['SF_Pro_Display'] text-5xl xl:text-6xl text-center font-semibold normal-case p-2 bg-gradient-to-r from-[#433E99] to-[#EF4832] bg-clip-text text-transparent relative z-10 bg-white">
-          Lorem Ipsum
-        </h2>
-
+        <Title text="Lorem Ipsum" />
         {/* Carousel Section */}
         <div className="w-[80%] xl:w-full relative mb-12">
           <div className="aspect-[4/3] w-full relative overflow-hidden rounded-lg">
@@ -126,9 +124,11 @@ const Installation = () => {
         </div>
 
         {/* Description Section */}
-        <p className="text-center py-24 text-[#2A266A] mx-auto font-['SF_Pro_Display'] text-xl xl:text-[1.625rem] font-normal leading-relaxed px-12 xl:px-36 xl:max-w-6xl">
-          {description}
-        </p>
+        <div className="w-full max-w-6xl mx-auto mb-12">
+          <p className="text-center text-[#2A266A] font-['SF_Pro_Display'] text-xl xl:text-[1.625rem] font-normal leading-relaxed">
+            {description}
+          </p>
+        </div>
       </div>
     </section>
   );

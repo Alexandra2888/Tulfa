@@ -38,7 +38,7 @@ const FabricVar = () => {
     fabrics.find((f) => f.id === selectedFabric) || fabrics[0];
 
   return (
-    <div className="mx-auto container px-4 pt-8 md:pt-96 h-screen">
+    <div className="mx-auto container px-4 pt-8  h-screen">
       <div className="flex flex-col md:flex-row md:gap-12 lg:gap-48">
         {/* Couch Preview */}
         <div className="w-full md:w-1/2 flex items-center justify-center mb-8 md:mb-0">
