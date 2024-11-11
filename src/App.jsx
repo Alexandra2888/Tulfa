@@ -8,6 +8,7 @@ import LifeStyle from "./components/LifeStyle/LifeStyle.jsx";
 import CloseUpShots from "./components/CloseUpShots/CloseUpShots.jsx";
 import Installation from "./components/Installation/Installation.jsx";
 import Dimensions from "./components/Dimensions/Dimensions.jsx";
+import Callout from "./components/Callout/Callout.jsx";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <CloseUpShots />
         <Installation />
         <Dimensions/>
+        <Callout/>
       </main>
     </div>
   );
