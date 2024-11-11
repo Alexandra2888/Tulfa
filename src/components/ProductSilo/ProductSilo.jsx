@@ -7,7 +7,10 @@ import { X } from "lucide-react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+
 import Title from "../../atoms/Title/Title";
+import Button from "../../atoms/Button/Button";
+
 
 Modal.setAppElement("#root");
 
@@ -68,13 +71,13 @@ const ProductSilo = () => {
           <div className="w-full md:w-1/2 flex flex-col items-center md:items-start gap-6">
             <Title text="Product Silos" />
 
-            <button
+            <Button
               onClick={() => setIsOpen(true)}
               className="flex items-center gap-2 px-4 py-2 border border-[#2A266A] rounded-full text-sm text-[#2A266A] hover:bg-[#2A266A] hover:text-white transition-colors"
             >
               <span>+</span>
               <span>Take a closer look</span>
-            </button>
+            </Button>
           </div>
 
           {/* Right column with image */}
@@ -93,12 +96,12 @@ const ProductSilo = () => {
             style={modalStyles}
             contentLabel="Product Gallery"
           >
-            <button
+            <Button
               onClick={() => setIsOpen(false)}
               className="absolute right-4 top-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
             >
               <X className="h-6 w-6" />
-            </button>
+            </Button>
 
             <div className="flex flex-col h-[80vh]">
               <div className="flex-none mb-4">
