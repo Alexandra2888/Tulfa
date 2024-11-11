@@ -1,5 +1,4 @@
 import { X } from "lucide-react";
-import PropTypes from "prop-types";
 import Button from "../../atoms/Button/Button";
 
 const GalleryModal = ({ isOpen, onClose }) => {
@@ -105,16 +104,6 @@ const GalleryModal = ({ isOpen, onClose }) => {
       </div>
     </div>
   );
-};
-
-GalleryModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-};
-
-GalleryModal.defaultProps = {
-  isOpen: false,
-  onClose: () => {},
 };
 
 export default GalleryModal;
