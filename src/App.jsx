@@ -7,6 +7,7 @@ import FabricVar from "./components/FabricVar/FabricVar.jsx";
 import LifeStyle from "./components/LifeStyle/LifeStyle.jsx";
 import CloseUpShots from "./components/CloseUpShots/CloseUpShots.jsx";
 import Installation from "./components/Installation/Installation.jsx";
+import Dimensions from "./components/Dimensions/Dimensions.jsx";
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
         <FabricVar />
         <LifeStyle />
         <CloseUpShots />
-        <Installation/>
+        <Installation />
+        <Dimensions/>
       </main>
     </div>
   );
