@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Button from "../../atoms/Button/Button";
 
 const ColorVariantViewer = () => {
   const [selectedColor, setSelectedColor] = useState("orange");
@@ -42,7 +43,7 @@ const ColorVariantViewer = () => {
           {/* Color selector for larger screens */}
           <div className="hidden xl:flex gap-3 mt-8">
             {Object.entries(variants).map(([colorKey, colorData]) => (
-              <button
+              <Button
                 key={colorKey}
                 onClick={() => setSelectedColor(colorKey)}
                 className={`w-6 h-6 rounded-full hover:scale-110 transition-transform ${
@@ -71,7 +72,7 @@ const ColorVariantViewer = () => {
           {/* Color selector for mobile screens */}
           <div className="flex xl:hidden gap-3 mt-8">
             {Object.entries(variants).map(([colorKey, colorData]) => (
-              <button
+              <Button
                 key={colorKey}
                 onClick={() => setSelectedColor(colorKey)}
                 className={`w-6 h-6 rounded-full hover:scale-110 transition-transform ${

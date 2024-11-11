@@ -4,6 +4,8 @@ import { ChevronUp, ChevronDown } from "lucide-react";
 import "swiper/css";
 import Title from "../../atoms/Title/Title";
 import Description from "../../atoms/Description/Description";
+import Button from "../../atoms/Button/Button";
+
 
 const installationData = {
   slides: [
@@ -99,20 +101,20 @@ const Installation = () => {
 
             {/* Navigation Buttons */}
             <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-10">
-              <button
+              <Button
                 onClick={prevSlide}
                 className="border-2 border-white rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-all hover:bg-white/20 active:bg-white/30 touch-manipulation"
                 aria-label="Previous slide"
               >
                 <ChevronUp className="w-5 h-5 md:w-6 md:h-6 text-white" />
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={nextSlide}
                 className="border-2 border-white rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-all hover:bg-white/20 active:bg-white/30 touch-manipulation"
                 aria-label="Next slide"
               >
                 <ChevronDown className="w-5 h-5 md:w-6 md:h-6 text-white" />
-              </button>
+              </Button>
             </div>
 
             {/* Slide Counter */}

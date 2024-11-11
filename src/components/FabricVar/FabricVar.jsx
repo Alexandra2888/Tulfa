@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Button from "../../atoms/Button/Button";
 
 const fabrics = [
   {
@@ -70,7 +71,7 @@ const FabricVar = () => {
               {showOptions && (
                 <div className="absolute -bottom-24 xl:-top-[75%] xl:left-[90%] xl:h-fit  w-48 bg-white shadow-xl rounded-lg p-2 flex flex-col space-y-2">
                   {fabrics.map((fabric) => (
-                    <button
+                    <Button
                       key={fabric.id}
                       onClick={() => setSelectedFabric(fabric.id)}
                       className="flex items-center justify-between w-full p-2 hover:bg-gray-100 rounded-md transition-colors"
@@ -83,7 +84,7 @@ const FabricVar = () => {
                           className="h-full w-full object-cover"
                         />
                       </div>
-                    </button>
+                    </Button>
                   ))}
                 </div>
               )}
