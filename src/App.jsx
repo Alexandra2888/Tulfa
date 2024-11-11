@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import LoadingSpinner from "./atoms/LoadingSpinner/LoAadingSpinner.jsx";
+import LoadingSpinner from "./atoms/LoadingSpinner/LoadingSpinner.jsx";
 
 const Header = lazy(() => import("./components/Header/Header.jsx"));
 const DescriptionCto3 = lazy(() =>
