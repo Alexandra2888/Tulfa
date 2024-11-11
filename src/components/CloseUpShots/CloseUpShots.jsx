@@ -2,6 +2,7 @@ import { Maximize } from "lucide-react";
 import { useState, useEffect } from "react";
 import GalleryModal from "./GalleryModal";
 import Title from "../../atoms/Title/Title";
+import Description from "../../atoms/Description/Description";
 
 const CloseUpShots = () => {
     const [scale, setScale] = useState(1);
@@ -62,11 +63,11 @@ const CloseUpShots = () => {
 
       {/* Paragraph section - Now outside the parallax container */}
       <div className="relative z-10 bg-white w-full">
-        <div className="w-full mx-auto px-4 xl:px-0">
-          <p className="text-center py-8 xl:py-24 text-[#2A266A] mx-auto font-['SF_Pro_Display'] text-xl xl:text-[1.625rem] font-normal leading-relaxed px-12 xl:px-36 xl:max-w-6xl">
-            Give your customers a clear view of how your furniture fits into
-            their space with precise dimensions and scale indicators.
-          </p>
+        <div className="w-full mx-auto px-4 py-24 xl:px-0">
+          <Description
+            text="Give your customers a clear view of how your furniture fits into
+            their space with precise dimensions and scale indicators."
+          />
         </div>
       </div>
 

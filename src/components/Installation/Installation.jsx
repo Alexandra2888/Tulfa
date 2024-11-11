@@ -3,10 +3,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { ChevronUp, ChevronDown } from "lucide-react";
 import "swiper/css";
 import Title from "../../atoms/Title/Title";
+import Description from "../../atoms/Description/Description";
 
 const installationData = {
-  description:
-    "Give your customers a clear view of how your furniture fits into their space with precise dimensions and scale indicators.",
   slides: [
     {
       id: 1,
@@ -55,7 +54,7 @@ const installationData = {
 
 const Installation = () => {
   const [swiper, setSwiper] = React.useState(null);
-  const { slides, description } = installationData;
+  const { slides } = installationData;
   const [currentSlide, setCurrentSlide] = React.useState(0);
 
   const nextSlide = () => {
@@ -125,9 +124,8 @@ const Installation = () => {
 
         {/* Description Section */}
         <div className="w-full max-w-6xl mx-auto mb-12">
-          <p className="text-center text-[#2A266A] font-['SF_Pro_Display'] text-xl xl:text-[1.625rem] font-normal leading-relaxed">
-            {description}
-          </p>
+         <Description text="Give your customers a clear view of how your furniture fits into their space with precise dimensions and scale indicators."
+/>
         </div>
       </div>
     </section>
