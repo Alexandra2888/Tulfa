@@ -1,37 +1,70 @@
-import AnimatedText from "../AnimatedText/AnimatedText.jsx";
+import { useRef, useMemo } from "react";
+import { useImagePreloader } from "../../hooks/useImagePreloader";
+import { useVideoScroll } from "../../hooks/useVideoScroll";
+import { useScrollAnimation } from "../../hooks/useScrollAnimation";
+import { S3_CONFIG } from "../../config/bannerConfig";
+import { BannerContent } from "./BannerContent";
 
-const Banner = () => {
+export const Banner = () => {
+  const containerRef = useRef(null);
+  const videoRef = useRef(null);
+
+  const imageUrls = useMemo(
+    () =>
+      Array.from({ length: S3_CONFIG.totalFrames }, (_, i) => {
+        const frameNumber = (i + S3_CONFIG.startFrame)
+          .toString()
+          .padStart(5, "0");
+        return `${S3_CONFIG.bucketUrl}/${frameNumber}.png`;
+      }),
+    []
+  );
+
+  const { isLoading, useFallbackVideo, loadingProgress, loadedImages } =
+    useImagePreloader(imageUrls, S3_CONFIG);
+
+  const { currentFrame, showIntroducing: imageShowIntroducing } =
+    useScrollAnimation(containerRef, S3_CONFIG.totalFrames, useFallbackVideo);
+
+  const { showIntroducing: videoShowIntroducing } = useVideoScroll(
+    containerRef,
+    videoRef,
+    useFallbackVideo
+  );
+
+  const showIntroducing = useFallbackVideo
+    ? videoShowIntroducing
+    : imageShowIntroducing;
+
+  const loadingProps = {
+    progress: loadingProgress,
+    loadedCount: loadedImages.size,
+    totalCount: imageUrls.length,
+  };
+
+  const contentProps = {
+    useFallbackVideo,
+    showIntroducing,
+    videoProps: {
+      videoRef,
+      showIntroducing,
+      fallbackVideoUrl: S3_CONFIG.fallbackVideoUrl,
+    },
+    imageProps: {
+      currentFrame,
+      imageUrls,
+      showIntroducing,
+    },
+  };
+
   return (
-    <section className="flex flex-col mb-36">
-      <div className="relative h-[500px] w-full overflow-hidden">
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
-        >
-          <source
-            src="https://res.cloudinary.com/dnpjmrdik/video/upload/v1731228878/tulfa/Banner%20Videos/aerial-video-of-the-sunrise-in-the-dolomites-mount-2023-11-27-05-26-37-utc_zbbeqo.mp4"
-            type="video/mp4"
-          />
-          Your browser does not support the video tag.
-        </video>
-      </div>
-
-      <div className="bg-white p-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="inline-block mb-8">
-            <AnimatedText />
-          </div>
-          <div className="relative w-full">
-            <img
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/bfcd057107dbac2d691636e4fa9c417b2b0cbbad8b55f096cfd9357132cc4a94?placeholderIfAbsent=true&apiKey=08393cffc2ee4dbabe58a75a40e60eaf"
-              alt="Yellow L-shaped couch"
-              className="w-full h-auto object-contain"
-            />
-          </div>
-        </div>
+    <section className="relative w-full">
+      <div ref={containerRef} className="h-[500vh] relative">
+        <BannerContent
+          isLoading={isLoading}
+          loadingProps={loadingProps}
+          contentProps={contentProps}
+        />
       </div>
     </section>
   );
