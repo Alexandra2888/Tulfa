@@ -32,7 +32,7 @@ const ColorVar = () => {
   );
 
   return (
-    <div className="w-full min-h-screen bg-white">
+    <div className="w-full h-full bg-white">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-8xl mx-auto">
         {/* Left Section */}
         <div className="relative flex flex-col items-center justify-center p-4 md:p-8">
