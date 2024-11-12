@@ -10,38 +10,31 @@ const CarouselLayout = ({ title, description, slides }) => {
   const [swiper, setSwiper] = React.useState(null);
   const [currentSlide, setCurrentSlide] = React.useState(0);
 
-  const nextSlide = () => {
-    if (swiper) {
-      swiper.slideNext();
-    }
-  };
-
-  const prevSlide = () => {
-    if (swiper) {
-      swiper.slidePrev();
-    }
-  };
+  const nextSlide = () => swiper?.slideNext();
+  const prevSlide = () => swiper?.slidePrev();
 
   return (
-    <section className="relative bg-white py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+    <section className="w-full bg-white">
+      <div className="w-full flex flex-col">
         {/* Title Section */}
-        <Title text={title} />
+        <div className="w-full py-16 xl:py-36 flex justify-center items-center">
+          <Title text={title} />
+        </div>
 
-        {/* Carousel Section */}
-        <div className="w-[80%] xl:w-full relative mb-12">
-          <div className="aspect-[4/3] w-full relative overflow-hidden rounded-lg">
+        {/* Carousel Section - Full Width */}
+        <div className="w-full relative">
+          <div className="w-full aspect-[4/3] relative overflow-hidden">
             <Swiper
               direction="vertical"
               onSwiper={setSwiper}
               speed={500}
               onSlideChange={(swiper) => setCurrentSlide(swiper.activeIndex)}
-              className="h-full"
+              className="h-full w-full"
               style={{ height: "100%" }}
               loop={true}
             >
               {slides.map((slide) => (
-                <SwiperSlide key={slide.id} className="h-full">
+                <SwiperSlide key={slide.id} className="w-full h-full">
                   <img
                     src={slide.image}
                     alt={slide.alt}
@@ -77,15 +70,12 @@ const CarouselLayout = ({ title, description, slides }) => {
         </div>
 
         {/* Description Section */}
-        <div className="w-full max-w-6xl mx-auto mb-12">
+        <div className="w-full my-36 md:my-18 xl:my-16">
           <Description text={description} />
         </div>
       </div>
     </section>
   );
 };
-
-
-
 
 export default CarouselLayout;

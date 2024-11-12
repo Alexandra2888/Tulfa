@@ -1,35 +1,7 @@
 import { useState } from "react";
 import Button from "../../atoms/Button/Button";
 
-const fabrics = [
-  {
-    id: "blue",
-    couchImage:
-      "https://res.cloudinary.com/dnpjmrdik/image/upload/v1731231704/tulfa/Fabric%20Var/blue-sofa-on-white-background-2023-11-27-05-35-36-utc-Photoroom_bo0acu.png",
-    fabricPiece:
-      "https://res.cloudinary.com/dnpjmrdik/image/upload/v1731313432/tulfa/Fabric%20Var/1_dioqaf.png",
-    name: "Prints",
-    color: "bg-sky-600",
-  },
-  {
-    id: "gray",
-    couchImage:
-      "https://res.cloudinary.com/dnpjmrdik/image/upload/v1731231710/tulfa/Fabric%20Var/grey-sofa-on-white-background-2024-10-23-17-40-37-utc-Photoroom_ivklma.png",
-    fabricPiece:
-      "https://res.cloudinary.com/dnpjmrdik/image/upload/v1731313433/tulfa/Fabric%20Var/2_fluaq9.png",
-    name: "Leathers",
-    color: "bg-gray-400",
-  },
-  {
-    id: "purple",
-    couchImage:
-      "https://res.cloudinary.com/dnpjmrdik/image/upload/v1731231715/tulfa/Fabric%20Var/violet-sofa-2023-11-27-05-16-21-utc-Photoroom_fns6qr.png",
-    fabricPiece:
-      "https://res.cloudinary.com/dnpjmrdik/image/upload/v1731313435/tulfa/Fabric%20Var/3_yld4pi.png",
-    name: "Embroidery",
-    color: "bg-purple-500",
-  },
-];
+import { fabrics } from "../../data/data";
 
 const FabricVar = () => {
   const [selectedFabric, setSelectedFabric] = useState(fabrics[0].id);
@@ -39,7 +11,7 @@ const FabricVar = () => {
     fabrics.find((f) => f.id === selectedFabric) || fabrics[0];
 
   return (
-    <div className="mx-auto container px-4 pt-8  h-screen">
+    <div className=" mx-auto container px-4 pt-8">
       <div className="flex flex-col md:flex-row md:gap-12 lg:gap-48">
         {/* Couch Preview */}
         <div className="w-full md:w-1/2 flex items-center justify-center mb-8 md:mb-0">
@@ -53,11 +25,11 @@ const FabricVar = () => {
         </div>
 
         {/* Fabric Selection */}
-        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start">
+        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start xl:mt-36">
           {/* Fabric Detail View */}
-          <div className="relative">
+          <div className="relative xl:ml-auto">
             <div
-              className="h-56 w-56 cursor-pointer"
+              className="h-56 w-56 cursor-pointer xl:max-w-96"
               onMouseEnter={() => setShowOptions(true)}
               onMouseLeave={() => setShowOptions(false)}
             >

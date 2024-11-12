@@ -10,54 +10,61 @@ const CloseUpShots = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const scale = useScrollScale({
-      maxScale: 1.5,
+      maxScale: 1,
       scrollRange: window.innerHeight,
-      initialScale: 1,
-      scaleFactor: 0.5,
+      initialScale: 1.5,
+      scaleFactor: 1,
     });
   
   return (
     <div className="relative">
       {/* Header */}
-      <div className="py-6 px-4 flex justify-center">
-        <Title text=" Close Up Shots " />
+      <div className="px-4 flex justify-center py-28 md:py-20">
+        <Title text="Close Up Shots" />
       </div>
 
       {/* Parallax section with min-height */}
       <div className="min-h-[300vh] relative">
         {/* Image container */}
-        <div className="sticky top-0 w-full h-screen overflow-hidden">
+        <div className="sticky top-0 w-full h-screen">
+          {/* Content wrapper */}
           <div className="relative w-full h-full">
-            <div className="w-full h-full bg-[#f5f5f5] relative">
-              <img
-                src="https://res.cloudinary.com/dnpjmrdik/image/upload/v1731231286/tulfa/Close%20Up%20Shots/view-of-a-modern-lounge-room-2023-11-28-03-19-28-utc_q38uc1.jpg"
-                alt="Couch close-up"
-                className="w-full h-full object-cover origin-center transition-transform duration-100"
-                style={{
-                  transform: `scale(${scale})`,
-                  maxWidth: "100%",
-                  margin: "0 auto",
-                }}
-              />
+            {/* Image and button container */}
+            <div className="absolute inset-0 flex items-center justify-center bg-[#f5f5f5]">
+              {/* Image wrapper with overflow control */}
+              <div className="relative w-full h-full overflow-hidden">
+                <img
+                  src="https://res.cloudinary.com/dnpjmrdik/image/upload/v1731231286/tulfa/Close%20Up%20Shots/view-of-a-modern-lounge-room-2023-11-28-03-19-28-utc_q38uc1.jpg"
+                  alt="Couch close-up"
+                  className="w-full h-full object-cover origin-center transition-transform duration-100"
+                  style={{
+                    transform: `scale(${scale})`,
+                    maxWidth: "100%",
+                    margin: "0 auto",
+                  }}
+                />
+              </div>
             </div>
 
-            {/* Floating button */}
-            <div className="absolute bottom-4 left-[50%] transform -translate-x-1/2">
-              <Button
-                onClick={() => setIsModalOpen(true)}
-                className="group flex items-center gap-2 px-3 py-1.5 bg-black/80 hover:bg-black/90 rounded-full text-white text-sm"
-              >
-                Take a closer look
-                <div className="bg-red-500 rounded-full p-1">
-                  <Maximize className="w-3 h-3" />
-                </div>
-              </Button>
+            {/* Button overlay */}
+            <div className="absolute inset-x-0 bottom-0 z-10 pb-4 flex justify-center pointer-events-none">
+              <div className="pointer-events-auto">
+                <Button
+                  onClick={() => setIsModalOpen(true)}
+                  className="group flex items-center gap-2 px-3 py-1.5 bg-black/80 hover:bg-black/90 rounded-full text-white text-sm"
+                >
+                  Take a closer look
+                  <div className="bg-red-500 rounded-full p-1">
+                    <Maximize className="w-3 h-3" />
+                  </div>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Paragraph section - Now outside the parallax container */}
+      {/* Paragraph section */}
       <div className="relative z-10 bg-white w-full">
         <div className="w-full mx-auto px-4 py-24 xl:px-0">
           <Description

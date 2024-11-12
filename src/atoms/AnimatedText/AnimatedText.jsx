@@ -29,23 +29,19 @@ const AnimatedGradientText = () => {
     }, []);
 
     return (
-      <div className="w-full min-h-[8rem] flex items-center justify-center px-4">
-        <div className="max-w-4xl w-full">
-          <h1
-            className="text-3xl sm:text-4xl md:text-5xl font-semibold text-center break-words sm:break-normal"
-            style={{
-              backgroundImage: `linear-gradient(to right, ${gradientPairs[currentGradient][0]}, ${gradientPairs[currentGradient][1]})`,
-              WebkitBackgroundClip: "text",
-              backgroundClip: "text",
-              color: "transparent",
-              WebkitTextFillColor: "transparent",
-              transition: "all 400ms ease-out",
-            }}
-          >
-            Virtual Product Photography
-          </h1>
-        </div>
-      </div>
+      <h1
+        className="text-3xl sm:text-4xl md:text-5xl font-semibold text-center mb-8"
+        style={{
+          backgroundImage: `linear-gradient(to right, ${gradientPairs[currentGradient][0]}, ${gradientPairs[currentGradient][1]})`,
+          WebkitBackgroundClip: "text",
+          backgroundClip: "text",
+          color: "transparent",
+          WebkitTextFillColor: "transparent",
+          transition: "all 400ms ease-out",
+        }}
+      >
+        Virtual Product Photography
+      </h1>
     );
 };
 
