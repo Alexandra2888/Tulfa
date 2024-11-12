@@ -1,178 +1,133 @@
-import { useState, useEffect, useRef, useMemo } from "react";
-import { throttle } from "lodash";
+import { useRef, useMemo } from "react";
+import { useImagePreloader } from "../../hooks/useImagePreloader";
+ import {useVideoScroll} from "../../hooks/useVideoScroll";
+import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 
 const Banner = () => {
-const [currentFrame, setCurrentFrame] = useState(0);
-const [loadedImages, setLoadedImages] = useState(new Set());
-const [isLoading, setIsLoading] = useState(true);
-const [showIntroducing, setShowIntroducing] = useState(false);
-const containerRef = useRef(null);
-const animationRef = useRef(null);
-const imagesCache = useRef({});
+  const containerRef = useRef(null);
+  const videoRef = useRef(null);
 
-  const cloudinaryConfig = {
-    cloudName: "dnpjmrdik",
-    baseUrl: "https://res.cloudinary.com/dnpjmrdik/image/upload",
-    version: "v1731241620",
-    folder: "banner",
-    totalFrames: 400,
+  const s3Config = {
+    bucketUrl: "https://tulfa.s3.eu-north-1.amazonaws.com",
+    totalFrames: 700,
     startFrame: 1,
+    maxRetries: 3,
+    retryDelay: 1000,
+    fallbackVideoUrl:
+      "https://res.cloudinary.com/dnpjmrdik/video/upload/v1731228878/tulfa/Banner%20Videos/aerial-video-of-the-sunrise-in-the-dolomites-mount-2023-11-27-05-26-37-utc_zbbeqo.mp4",
   };
 
-  // Generate URLs and preload all images
   const imageUrls = useMemo(
     () =>
-      Array.from({ length: cloudinaryConfig.totalFrames }, (_, i) => {
-        const frameNumber = (i + cloudinaryConfig.startFrame).toString();
-        return `${cloudinaryConfig.baseUrl}/${cloudinaryConfig.version}/${cloudinaryConfig.folder}/${frameNumber}.png`;
+      Array.from({ length: s3Config.totalFrames }, (_, i) => {
+        const frameNumber = (i + s3Config.startFrame)
+          .toString()
+          .padStart(5, "0");
+        return `${s3Config.bucketUrl}/${frameNumber}.png`;
       }),
-    []
+    [s3Config.totalFrames, s3Config.startFrame, s3Config.bucketUrl]
   );
 
-  useEffect(() => {
-    const preloadImages = async () => {
-      const loadImage = (url) => {
-        return new Promise((resolve) => {
-          if (imagesCache.current[url]) {
-            resolve();
-            return;
-          }
+  const { isLoading, useFallbackVideo, loadingProgress, loadedImages } =
+    useImagePreloader(imageUrls, s3Config);
 
-          const img = new Image();
-          img.onload = () => {
-            imagesCache.current[url] = img;
-            setLoadedImages((prev) => new Set([...prev, url]));
-            resolve();
-          };
-          img.onerror = () => {
-            console.error(`Failed to load: ${url}`);
-            resolve();
-          };
-          img.src = url;
-        });
-      };
+  const { currentFrame, showIntroducing: imageShowIntroducing } =
+    useScrollAnimation(containerRef, s3Config.totalFrames, useFallbackVideo);
 
-      const chunkSize = 10;
-      for (let i = 0; i < imageUrls.length; i += chunkSize) {
-        const chunk = imageUrls.slice(i, i + chunkSize);
-        await Promise.all(chunk.map((url) => loadImage(url)));
-      }
-
-      setIsLoading(false);
-    };
-
-    preloadImages();
-
-    return () => {
-      imagesCache.current = {};
-    };
-  }, [imageUrls]);
-
-  const animate = () => {
-    if (!containerRef.current) return;
-
-    // Calculate scroll position relative to the container
-    const containerRect = containerRef.current.getBoundingClientRect();
-    const containerTop = containerRect.top;
-    const containerHeight = containerRect.height;
-    const viewportHeight = window.innerHeight;
-
-    // Only animate when container is in view
-    if (containerTop <= viewportHeight && containerTop > -containerHeight) {
-      const scrollFraction =
-        Math.abs(containerTop) / (containerHeight - viewportHeight);
-      const frameIndex = Math.min(
-        Math.floor(scrollFraction * (cloudinaryConfig.totalFrames - 1)),
-        cloudinaryConfig.totalFrames - 1
-      );
-
-      setCurrentFrame(frameIndex);
-      setShowIntroducing(scrollFraction > 0.95);
-    }
-
-    animationRef.current = requestAnimationFrame(animate);
-  };
-
-  const handleScroll = useMemo(
-    () =>
-      throttle(() => {
-        if (animationRef.current) {
-          cancelAnimationFrame(animationRef.current);
-        }
-        animationRef.current = requestAnimationFrame(animate);
-      }, 16),
-    []
+  const { showIntroducing: videoShowIntroducing } = useVideoScroll(
+    containerRef,
+    videoRef,
+    useFallbackVideo
   );
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    animationRef.current = requestAnimationFrame(animate);
+  const showIntroducing = useFallbackVideo
+    ? videoShowIntroducing
+    : imageShowIntroducing;
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [handleScroll]);
-
-    const loadingProgress = Math.round(
-      (loadedImages.size / imageUrls.length) * 100
-    );
-
-  return (
-    <div ref={containerRef} className=" min-h-[500vh]">
-      <div className="fixed top-0 left-0 w-full h-screen flex items-center justify-center bg-black">
-        {isLoading ? (
-          <div className="text-center text-white">
-            <div className="mb-4 text-xl font-semibold">Loading Frames...</div>
-            <div className="w-64 h-2 bg-gray-700 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-blue-500 rounded-full transition-all duration-300"
-                style={{ width: `${loadingProgress}%` }}
-              />
-            </div>
-            <div className="mt-2">
-              {loadingProgress}% ({loadedImages.size}/{imageUrls.length})
-            </div>
-          </div>
-        ) : (
-          <div className="relative w-full h-full">
-            {/* Main frame sequence */}
-            <div className="w-full h-full relative">
-              <img
-                src={imageUrls[currentFrame]}
-                alt={`Frame ${currentFrame + 1}`}
-                className="w-full h-full object-cover"
-                style={{
-                  opacity: showIntroducing ? 0 : 1,
-                  transition: "opacity 0.5s ease-in-out",
-                }}
-              />
-            </div>
-
-            {/* Introducing overlay */}
-            <div
-              className={`absolute inset-0 flex items-center justify-center bg-white
-                         transition-opacity duration-500 ease-in-out
-                         ${
-                           showIntroducing
-                             ? "opacity-100"
-                             : "opacity-0 pointer-events-none"
-                         }`}
-            >
-              <div className="w-full max-w-6xl mx-auto px-8 py-16 fixed">
-                <img
-                  src="https://res.cloudinary.com/dnpjmrdik/image/upload/v1731232248/tulfa/Banner%20Videos/introducing_jotvfv.png"
-                  alt="Introducing"
-                  className="w-full max-w-2xl mx-auto"
-                />
-              </div>
-            </div>
-          </div>
-        )}
+  const LoadingComponent = () => (
+    <div className="flex items-center justify-center h-full">
+      <div className="text-center text-white">
+        <div className="mb-4 text-xl font-semibold">Loading Content...</div>
+        <div className="w-64 h-2 bg-gray-700 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-blue-500 rounded-full transition-all duration-300"
+            style={{ width: `${loadingProgress}%` }}
+          />
+        </div>
+        <div className="mt-2">
+          {loadingProgress}% ({loadedImages.size}/{imageUrls.length})
+        </div>
       </div>
     </div>
+  );
+
+  const VideoContent = () => (
+    <video
+      ref={videoRef}
+      className="w-full h-full object-cover"
+      playsInline
+      muted
+      preload="auto"
+      style={{
+        opacity: showIntroducing ? 0 : 1,
+        transition: "opacity 0.5s ease-in-out",
+      }}
+    >
+      <source src={s3Config.fallbackVideoUrl} type="video/mp4" />
+    </video>
+  );
+
+  const ImageContent = () => (
+    <img
+      src={imageUrls[currentFrame]}
+      alt={`Frame ${currentFrame + 1}`}
+      className="w-full h-full object-cover"
+      style={{
+        opacity: showIntroducing ? 0 : 1,
+        transition: "opacity 0.5s ease-in-out",
+      }}
+    />
+  );
+
+  const IntroducingOverlay = () => (
+    <div
+      className={`absolute inset-0 flex items-center justify-center bg-white
+                 transition-opacity duration-1000 ease-in-out
+                 ${
+                   showIntroducing
+                     ? "opacity-100"
+                     : "opacity-0 pointer-events-none"
+                 }`}
+    >
+      <div className="w-full max-w-6xl mx-auto px-8 py-16">
+        <img
+          src="https://res.cloudinary.com/dnpjmrdik/image/upload/v1731232248/tulfa/Banner%20Videos/introducing_jotvfv.png"
+          alt="Introducing"
+          className="w-full max-w-2xl mx-auto"
+          style={{
+            transform: showIntroducing ? "scale(1)" : "scale(0.95)",
+            transition: "transform 1s ease-in-out",
+          }}
+        />
+      </div>
+    </div>
+  );
+
+  return (
+    <section className="relative w-full">
+      <div ref={containerRef} className="h-[500vh] relative">
+        <div className="sticky top-0 w-full h-screen overflow-hidden bg-black">
+          {isLoading ? (
+            <LoadingComponent />
+          ) : (
+            <div className="relative w-full h-full">
+              {useFallbackVideo ? <VideoContent /> : <ImageContent />}
+              <IntroducingOverlay />
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
   );
 };
 
