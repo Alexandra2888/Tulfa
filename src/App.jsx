@@ -2,6 +2,9 @@ import { lazy, Suspense } from "react";
 import LoadingSpinner from "./atoms/LoadingSpinner/LoadingSpinner.jsx";
 
 const Header = lazy(() => import("./components/Header/Header.jsx"));
+const DescriptionCto2 = lazy(() =>
+  import("./components/DescriptionCto2/DescriptionCto2.jsx")
+);
 const DescriptionCto3 = lazy(() =>
   import("./components/DescriptionCto3/DescriptionCto3.jsx")
 );
@@ -24,49 +27,60 @@ const Footer = lazy(() => import("./components/Footer/Footer.jsx"));
 
 
 
-function App() {
+export default function App() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <>
       <Suspense fallback={<LoadingSpinner />}>
         <Header />
-        <main className="flex-1">
-          <Suspense fallback={<LoadingSpinner />}>
-            <DescriptionCto3 />
-          </Suspense>
-          <Suspense fallback={<LoadingSpinner />}>
-            <ProductSilo />
-          </Suspense>
-          <Suspense fallback={<LoadingSpinner />}>
-            <SizeVars />
-          </Suspense>
-          <Suspense fallback={<LoadingSpinner />}>
-            <ColorVar />
-          </Suspense>
-          <Suspense fallback={<LoadingSpinner />}>
-            <FabricVar />
-          </Suspense>
-          <Suspense fallback={<LoadingSpinner />}>
-            <LifeStyle />
-          </Suspense>
-          <Suspense fallback={<LoadingSpinner />}>
-            <CloseUpShots />
-          </Suspense>
-          <Suspense fallback={<LoadingSpinner />}>
-            <Installation />
-          </Suspense>
-          <Suspense fallback={<LoadingSpinner />}>
-            <Dimensions />
-          </Suspense>
-          <Suspense fallback={<LoadingSpinner />}>
-            <Callout />
-          </Suspense>
-        </main>
-        <Suspense fallback={<LoadingSpinner />}>
-          <Footer />
-        </Suspense>
       </Suspense>
-    </div>
+
+      <Suspense fallback={<LoadingSpinner />}>
+        <DescriptionCto2 />
+      </Suspense>
+
+      <Suspense fallback={<LoadingSpinner />}>
+        <DescriptionCto3 />
+      </Suspense>
+
+      <Suspense fallback={<LoadingSpinner />}>
+        <ProductSilo />
+      </Suspense>
+
+      <Suspense fallback={<LoadingSpinner />}>
+        <SizeVars />
+      </Suspense>
+
+      <Suspense fallback={<LoadingSpinner />}>
+        <ColorVar />
+      </Suspense>
+
+      <Suspense fallback={<LoadingSpinner />}>
+        <FabricVar />
+      </Suspense>
+
+      <Suspense fallback={<LoadingSpinner />}>
+        <LifeStyle />
+      </Suspense>
+
+      <Suspense fallback={<LoadingSpinner />}>
+        <CloseUpShots />
+      </Suspense>
+
+      <Suspense fallback={<LoadingSpinner />}>
+        <Installation />
+      </Suspense>
+
+      <Suspense fallback={<LoadingSpinner />}>
+        <Dimensions />
+      </Suspense>
+
+      <Suspense fallback={<LoadingSpinner />}>
+        <Callout />
+      </Suspense>
+
+      <Suspense fallback={<LoadingSpinner />}>
+        <Footer />
+      </Suspense>
+    </>
   );
 }
-
-export default App;

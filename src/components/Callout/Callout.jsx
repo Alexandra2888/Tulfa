@@ -1,6 +1,6 @@
 const Callout = () => {
   return (
-    <section className="relative mt-[60%]">
+    <section className="relative">
       <div className="relative h-[500px] w-full overflow-hidden">
         <video
           className="absolute inset-0 w-full h-full object-cover"

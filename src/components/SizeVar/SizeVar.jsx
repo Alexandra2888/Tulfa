@@ -1,10 +1,10 @@
 const SizeVars = () => {
   return (
-    <div className="relative w-full h-screen flex flex-col items-center justify-center py-8 bg-[#F0F3FB]">
+    <div className="relative w-full flex flex-col items-center justify-end sm:justify-center bg-[#F0F3FB] overflow-hidden">
       <div className="relative w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Large shelf - Back */}
-        <div className="relative w-full">
-          <span className="absolute left-20 sm:left-4 top-[65%] sm:top-[57%] -translate-y-1/2 font-normal text-[#2A266A] text-3xl xl:text-2xl">
+        <div className="relative w-full translate-y-1/4 sm:translate-y-0">
+          <span className="absolute left-16 sm:left-4 top-[60%] sm:top-[57%] -translate-y-1/2 font-normal text-[#2A266A] text-3xl xl:text-2xl">
             L
           </span>
           <img
@@ -15,8 +15,8 @@ const SizeVars = () => {
         </div>
 
         {/* Medium shelf - Middle */}
-        <div className="absolute top-[12%] sm:top-[15%] w-full">
-          <span className="absolute left-28 sm:left-9 top-[67%] sm:top-[60%] -translate-y-1/2 font-normal text-[#2A266A] text-3xl xl:text-2xl">
+        <div className="absolute top-[12%] sm:top-[15%] w-full translate-y-1/4 sm:translate-y-0">
+          <span className="absolute left-20 sm:left-9 top-[67%] sm:top-[60%] -translate-y-1/2 font-normal text-[#2A266A] text-3xl xl:text-2xl">
             M
           </span>
           <img
@@ -27,8 +27,8 @@ const SizeVars = () => {
         </div>
 
         {/* Small shelf - Front */}
-        <div className="absolute top-[24%] sm:top-[30%] w-full">
-          <span className="absolute left-48 sm:left-16 top-[70%] sm:top-[63%] -translate-y-1/2 font-normal text-[#2A266A] text-3xl xl:text-2xl">
+        <div className="absolute top-[24%] sm:top-[30%] w-full translate-y-1/4 sm:translate-y-0">
+          <span className="absolute left-36 sm:left-16 top-[85%] sm:top-[63%] -translate-y-1/2 font-normal text-[#2A266A] text-3xl xl:text-2xl">
             S
           </span>
           <img
@@ -38,7 +38,7 @@ const SizeVars = () => {
           />
         </div>
       </div>
-      <p className="text-center text-base font-normal text-[#2A266A] mt-8">
+      <p className="text-center text-base font-normal text-[#2A266A] mt-8 mb-4 sm:mb-0 xl:mb-12">
         Lorem ipsum Dolor Sit Amet
       </p>
     </div>

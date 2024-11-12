@@ -5,8 +5,8 @@ const GalleryModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/30 flex items-start justify-start sm:items-center sm:justify-center">
-      <div className="relative h-content mt-[70%] xl:mt-0 w-[35%] sm:h-auto lg:max-w-[80%] xl:max-w-[1200px] sm:max-h-[90vh] overflow-y-auto bg-white rounded-lg">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/30 flex items-center justify-center p-4">
+      <div className="relative w-full max-h-[90vh] overflow-y-auto bg-white rounded-lg md:w-[90%] lg:w-[80%] xl:w-[1200px]">
         {/* Header */}
         <div className="sticky top-0 left-0 right-0 flex justify-between items-center p-4 bg-gradient-to-b from-black/50 to-transparent z-10">
           <Button onClick={onClose} className="text-white hover:text-gray-300">
@@ -31,9 +31,8 @@ const GalleryModal = ({ isOpen, onClose }) => {
             </div>
 
             {/* Image Grid */}
-            <div className="grid grid-cols-2 gap-4">
-              {/* Image grid items */}
-              {/* Row 1 - Two equal columns */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Row 1 */}
               <div className="aspect-square">
                 <img
                   src="https://res.cloudinary.com/dnpjmrdik/image/upload/v1731231286/tulfa/Close%20Up%20Shots/view-of-a-modern-lounge-room-2023-11-28-03-19-28-utc_q38uc1.jpg"
@@ -49,7 +48,7 @@ const GalleryModal = ({ isOpen, onClose }) => {
                 />
               </div>
 
-              {/* Row 2 - Two equal columns */}
+              {/* Row 2 */}
               <div className="aspect-square">
                 <img
                   src="https://res.cloudinary.com/dnpjmrdik/image/upload/v1731230802/tulfa/Close%20Up%20Shots/2_uigfcm.jpg"
@@ -66,7 +65,7 @@ const GalleryModal = ({ isOpen, onClose }) => {
               </div>
 
               {/* Row 3 - Full width image */}
-              <div className="col-span-2 aspect-[2/1]">
+              <div className="col-span-1 sm:col-span-2 aspect-[2/1]">
                 <img
                   src="https://res.cloudinary.com/dnpjmrdik/image/upload/v1731230959/tulfa/Close%20Up%20Shots/lounge-room-2024-01-22-18-27-58-utc_2_v2htnp.jpg"
                   alt="Grid 5"
@@ -74,7 +73,7 @@ const GalleryModal = ({ isOpen, onClose }) => {
                 />
               </div>
 
-              {/* Row 4 - Two equal columns */}
+              {/* Row 4 */}
               <div className="aspect-square">
                 <img
                   src="https://res.cloudinary.com/dnpjmrdik/image/upload/v1731231245/tulfa/Close%20Up%20Shots/screw-for-furniture-assembly-close-up-2023-11-27-04-51-33-utc_kpcnra.jpg"
@@ -91,7 +90,7 @@ const GalleryModal = ({ isOpen, onClose }) => {
               </div>
 
               {/* Row 5 - Full width image */}
-              <div className="col-span-2 aspect-[2/1]">
+              <div className="col-span-1 sm:col-span-2 aspect-[2/1]">
                 <img
                   src="https://res.cloudinary.com/dnpjmrdik/image/upload/v1731230802/tulfa/Close%20Up%20Shots/2_uigfcm.jpg"
                   alt="Grid 8"

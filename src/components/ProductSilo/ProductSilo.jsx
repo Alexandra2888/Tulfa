@@ -64,13 +64,12 @@ const ProductSilo = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-white">
+    <section className="flex items-center justify-center bg-white">
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col items-center md:flex-row md:items-center md:justify-between gap-8">
           {/* Left column with text and button */}
-          <div className="w-full md:w-1/2 flex flex-col items-center md:items-start gap-6">
+          <div className="w-full md:w-1/2 flex flex-col items-center md:items-start gap-6 pt-24">
             <Title text="Product Silos" />
-
             <Button
               onClick={() => setIsOpen(true)}
               className="flex items-center gap-2 px-4 py-2 border border-[#2A266A] rounded-full text-sm text-[#2A266A] hover:bg-[#2A266A] hover:text-white transition-colors"
@@ -85,7 +84,7 @@ const ProductSilo = () => {
             <img
               src={images[0].url}
               alt={images[0].alt}
-              className="w-full max-w-[300px] sm:max-w-[400px] object-contain"
+              className="w-full max-w-[300px] sm:max-w-[400px] object-contain scale-[1]"
             />
           </div>
 
@@ -96,16 +95,16 @@ const ProductSilo = () => {
             style={modalStyles}
             contentLabel="Product Gallery"
           >
-            <Button
+            <button
               onClick={() => setIsOpen(false)}
-              className="absolute right-4 top-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
+              className="flex items-center justify-center absolute right-4 top-4 p-2 rounded-full cursor-pointer w-8 h-8 transition-colors bg-black hover:bg-gray-800"
             >
-              <X className="h-6 w-6" />
-            </Button>
+              <X className="h-4 w-4 text-white" />
+            </button>
 
             <div className="flex flex-col h-[80vh]">
               <div className="flex-none mb-4">
-                <h3 className="text-center xl:px-24 break-words relative top-20 z-10 text-xl font-['SF_Pro_Display'] text-[#433E99]">
+                <h3 className="text-center xl:px-24 break-words relative top-20 z-10 text-xl  text-[#433E99]">
                   Ultra-high-definition images of your furniture shot from
                   different angles.
                 </h3>

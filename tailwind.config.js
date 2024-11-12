@@ -7,6 +7,13 @@ export default {
   theme: {
     extend: {
       keyframes: {
+        slideUp: {
+          '0%': { transform: 'translateY(100%)' },
+          '100%': { transform: 'translateY(0)' },
+      },
+      animation: {
+        slideUp: 'slideUp 300ms ease-out',
+      },
         fadeIn: {
           '0%': {
             opacity: '0',

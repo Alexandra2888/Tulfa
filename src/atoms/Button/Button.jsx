@@ -9,7 +9,7 @@ const Button = ({
 }) => {
   return (
     <button
-      className={`px-4 py-2 rounded-md font-medium transition-colors ${className}`}
+      className={`font-medium transition-colors ${className}`}
       onClick={onClick}
       style={style}
       aria-label={ariaLabel}
