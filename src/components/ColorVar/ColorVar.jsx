@@ -7,6 +7,7 @@ const ColorVar = () => {
 
   const ColorSelector = ({ isDesktop = false }) => (
     <div
+      data-testid={`color-selector-${isDesktop ? "desktop" : "mobile"}`}
       className={`${
         isDesktop ? "hidden md:flex" : "flex md:hidden"
       } gap-3 mt-8`}
@@ -24,13 +25,14 @@ const ColorVar = () => {
             background: `linear-gradient(135deg, ${colorData.gradient[0]} 0%, ${colorData.gradient[1]} 100%)`,
           }}
           aria-label={`Select ${colorKey} color`}
+          data-testid={`color-button-${colorKey}`}
         />
       ))}
     </div>
   );
 
   return (
-    <div className="w-full h-full bg-white">
+    <section className="w-full h-full bg-white" data-testid="color-var-section">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-8xl mx-auto">
         {/* Left Section */}
         <div className="relative flex flex-col items-center justify-center p-4 md:p-8">
@@ -39,6 +41,7 @@ const ColorVar = () => {
               src={variants[selectedColor].images[0]}
               alt="Main view"
               className="w-full h-full object-contain"
+              data-testid="main-image"
             />
           </div>
           <ColorSelector isDesktop={true} />
@@ -58,6 +61,7 @@ const ColorVar = () => {
                     md:scale-125 md:translate-x-1/4
                     lg:scale-[1.5] lg:translate-x-1/3
                     xl:scale-[1.5] xl:translate-x-1/2"
+                  data-testid="secondary-image"
                 />
               </div>
             </div>
@@ -65,7 +69,7 @@ const ColorVar = () => {
           <ColorSelector isDesktop={false} />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
