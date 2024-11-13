@@ -4,7 +4,7 @@ A modern, responsive e-commerce platform for furniture retail, built with React 
 
 ## 📸 Preview
 
-![alt text](image-4.png)
+![alt text](image-5.png)
 
 
 
