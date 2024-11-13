@@ -1,4 +1,4 @@
-import { renderHook } from "@testing-library/react";
+import { renderHook, act } from "@testing-library/react";
 import { useImagePreloader } from "./useImagePreloader";
 
 // Mock window properties
@@ -46,13 +46,14 @@ describe("useImagePreloader", () => {
     );
 
     // Wait for images to load
-    await new Promise((resolve) => setTimeout(resolve, 150));
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 150));
+    });
 
     expect(result.current.isLoading).toBe(false);
     expect(result.current.loadedImages.size).toBe(mockImageUrls.length);
     expect(result.current.loadingProgress).toBe(100);
   });
-
 
   test("should handle cache for previously loaded images", async () => {
     const { result, rerender } = renderHook(() =>
@@ -60,7 +61,9 @@ describe("useImagePreloader", () => {
     );
 
     // Wait for initial load
-    await new Promise((resolve) => setTimeout(resolve, 150));
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 150));
+    });
 
     // Rerender with same URLs
     rerender();
