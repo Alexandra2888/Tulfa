@@ -1,4 +1,4 @@
- const VideoContent = ({
+ const Video = ({
   videoRef,
   showIntroducing,
   fallbackVideoUrl,
@@ -19,4 +19,4 @@
 );
 
 
-export default VideoContent;
+export default Video;
