@@ -99,6 +99,27 @@ export const fabrics = [
   },
 ];
 
+export const fabric = [
+  {
+    id: "fabric1",
+    name: "Cotton Blend",
+    couchImage: "/images/couch-cotton.jpg",
+    fabricPiece: "/images/fabric-cotton.jpg",
+  },
+  {
+    id: "fabric2",
+    name: "Velvet",
+    couchImage: "/images/couch-velvet.jpg",
+    fabricPiece: "/images/fabric-velvet.jpg",
+  },
+  {
+    id: "fabric3",
+    name: "Linen",
+    couchImage: "/images/couch-linen.jpg",
+    fabricPiece: "/images/fabric-linen.jpg",
+  },
+];
+
 
 export const installationData = {
   slides: [
@@ -146,3 +167,26 @@ export const installationData = {
     },
   ],
 };
+
+export   const images = [
+  {
+    id: 1,
+    url: "https://res.cloudinary.com/dnpjmrdik/image/upload/v1731257767/tulfa/Silo%20Images/Slide_4_3_-_1_pcg6g6.png",
+    alt: "Woven cylinder lamp front view",
+  },
+  {
+    id: 2,
+    url: "https://res.cloudinary.com/dnpjmrdik/image/upload/v1731257797/tulfa/Silo%20Images/Slide_4_3_-_8_rwq9ix.png",
+    alt: "Woven cylinder lamp close-up",
+  },
+  {
+    id: 3,
+    url: "https://res.cloudinary.com/dnpjmrdik/image/upload/v1731257786/tulfa/Silo%20Images/Slide_4_3_-_6_iqpjnb.png",
+    alt: "Woven cylinder lamp side view",
+  },
+  {
+    id: 4,
+    url: "https://res.cloudinary.com/dnpjmrdik/image/upload/v1731257797/tulfa/Silo%20Images/Slide_4_3_-_8_rwq9ix.png",
+    alt: "Woven cylinder lamp detail",
+  },
+];
