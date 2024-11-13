@@ -74,7 +74,7 @@ export const useVideoScroll = (containerRef, videoRef, useFallbackVideo) => {
     }
   }, [useFallbackVideo, showIntroducing]);
 
-  // Function to manually control video playback
+  //  Control video playback
   const controlVideoPlayback = (play) => {
     if (videoRef.current) {
       if (play) {
