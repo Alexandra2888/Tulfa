@@ -9,5 +9,8 @@ module.exports = {
   testMatch: ["**/__tests__/**/*.{js,jsx}", "**/?(*.)+(spec|test).{js,jsx}"],
   moduleNameMapper: {
     "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+    "^swiper/css$": "identity-obj-proxy",
+    "^swiper/css/navigation$": "identity-obj-proxy",
+    "^swiper/css/pagination$": "identity-obj-proxy",
   },
 };
