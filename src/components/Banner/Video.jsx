@@ -29,24 +29,21 @@ const Video = ({ videoRef, showIntroducing, fallbackVideoUrl }) => {
       }
     };
 
-    // Add scroll event listener
     window.addEventListener("scroll", handleScroll, { passive: true });
 
-    // Initial play
     if (videoRef.current) {
       videoRef.current.play().catch((error) => {
         console.log("Initial video play failed:", error);
       });
     }
 
-    // Cleanup
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [videoRef]);
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full" data-testid="video-container">
       <video
         ref={videoRef}
         className="w-full h-full object-cover"
@@ -54,6 +51,7 @@ const Video = ({ videoRef, showIntroducing, fallbackVideoUrl }) => {
         muted
         autoPlay
         loop
+        data-testid="video-element"
         style={{
           opacity: showIntroducing ? 0 : 1,
           transition: "opacity 0.5s ease-in-out",
