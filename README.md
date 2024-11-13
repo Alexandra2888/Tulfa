@@ -47,7 +47,9 @@ For detailed information, please check the docs folder:
 
 ## 🌐 Deployment
 The project is deployed on 
+
 Vercel: https://tulfa-gamma.vercel.app/
+
 Netlify: https://tulfa.netlify.app/
 
 
