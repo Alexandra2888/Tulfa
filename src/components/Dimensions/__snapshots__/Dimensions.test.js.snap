@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dimensions Component matches snapshot 1`] = `
+<div>
+  <div
+    data-testid="carousel-layout"
+  >
+    <h2
+      data-testid="carousel-title"
+    >
+      Lorem Ipsum
+    </h2>
+    <p
+      data-testid="carousel-description"
+    >
+      Give your customers a clear view of how your furniture fits into their space with precise dimensions and scale indicators.
+    </p>
+    <div
+      data-testid="carousel-slides"
+    >
+      <div
+        data-testid="slide-0"
+      >
+        Dimension 1
+      </div>
+      <div
+        data-testid="slide-1"
+      >
+        Dimension 2
+      </div>
+      <div
+        data-testid="slide-2"
+      >
+        Dimension 3
+      </div>
+    </div>
+  </div>
+</div>
+`;

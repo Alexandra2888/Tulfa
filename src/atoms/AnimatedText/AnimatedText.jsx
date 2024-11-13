@@ -31,6 +31,7 @@ const AnimatedGradientText = () => {
     return (
       <h1
         className="text-3xl sm:text-4xl md:text-5xl font-semibold text-center mb-8"
+        data-testid="animated-text"
         style={{
           backgroundImage: `linear-gradient(to right, ${gradientPairs[currentGradient][0]}, ${gradientPairs[currentGradient][1]})`,
           WebkitBackgroundClip: "text",
