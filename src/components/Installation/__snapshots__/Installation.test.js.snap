@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Installation Component matches snapshot 1`] = `
+<div>
+  <div
+    data-testid="carousel-layout"
+  >
+    <h2
+      data-testid="carousel-title"
+    >
+      Lorem Ipsum
+    </h2>
+    <p
+      data-testid="carousel-description"
+    >
+      Give your customers a clear view of how your furniture fits into their space with precise dimensions and scale indicators.
+    </p>
+    <div
+      data-testid="carousel-slides"
+    >
+      <div
+        data-testid="slide-0"
+      >
+        Slide 1
+      </div>
+      <div
+        data-testid="slide-1"
+      >
+        Slide 2
+      </div>
+    </div>
+  </div>
+</div>
+`;
