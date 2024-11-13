@@ -46,7 +46,71 @@ const GalleryModal = ({ isOpen, onClose }) => {
               className="grid grid-cols-1 sm:grid-cols-2 gap-4"
               data-testid="image-grid"
             >
-              {/* Rest of the grid content remains the same */}
+              {/* Row 1 */}
+              <div className="aspect-square">
+                <img
+                  src="https://res.cloudinary.com/dnpjmrdik/image/upload/v1731231286/tulfa/Close%20Up%20Shots/view-of-a-modern-lounge-room-2023-11-28-03-19-28-utc_q38uc1.jpg"
+                  alt="Grid 1"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
+              <div className="aspect-square">
+                <img
+                  src="https://res.cloudinary.com/dnpjmrdik/image/upload/v1731231211/tulfa/Close%20Up%20Shots/lounge-room-2024-01-22-18-27-58-utc_yb6t4k.jpg"
+                  alt="Grid 2"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
+
+              {/* Row 2 */}
+              <div className="aspect-square">
+                <img
+                  src="https://res.cloudinary.com/dnpjmrdik/image/upload/v1731230802/tulfa/Close%20Up%20Shots/2_uigfcm.jpg"
+                  alt="Grid 3"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
+              <div className="aspect-square">
+                <img
+                  src="https://res.cloudinary.com/dnpjmrdik/image/upload/v1731230897/tulfa/Close%20Up%20Shots/lounge-room-2024-01-22-18-27-58-utc_1_m4nda3.jpg"
+                  alt="Grid 4"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
+
+              {/* Row 3 - Full width image */}
+              <div className="col-span-1 sm:col-span-2 aspect-[2/1]">
+                <img
+                  src="https://res.cloudinary.com/dnpjmrdik/image/upload/v1731230959/tulfa/Close%20Up%20Shots/lounge-room-2024-01-22-18-27-58-utc_2_v2htnp.jpg"
+                  alt="Grid 5"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
+
+              {/* Row 4 */}
+              <div className="aspect-square">
+                <img
+                  src="https://res.cloudinary.com/dnpjmrdik/image/upload/v1731231245/tulfa/Close%20Up%20Shots/screw-for-furniture-assembly-close-up-2023-11-27-04-51-33-utc_kpcnra.jpg"
+                  alt="Grid 6"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
+              <div className="aspect-square">
+                <img
+                  src="https://res.cloudinary.com/dnpjmrdik/image/upload/v1731231257/tulfa/Close%20Up%20Shots/stylish-chest-of-drawers-close-up-furniture-for-2024-01-18-18-28-52-utc_viecz4.jpg"
+                  alt="Grid 7"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
+
+              {/* Row 5 - Full width image */}
+              <div className="col-span-1 sm:col-span-2 aspect-[2/1]">
+                <img
+                  src="https://res.cloudinary.com/dnpjmrdik/image/upload/v1731230802/tulfa/Close%20Up%20Shots/2_uigfcm.jpg"
+                  alt="Grid 8"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
             </div>
           </div>
         </div>
