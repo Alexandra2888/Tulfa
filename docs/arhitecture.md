@@ -32,7 +32,6 @@
 ### For UX Team
 - Implementation of a comprehensive design system in Figma would streamline development
 - Tailwind configuration could be better aligned with design tokens
-- Consider providing interactive prototypes for complex animations
 
 ### For Frontend Team
 - Consider migrating to Next.js for:
@@ -42,7 +41,7 @@
   - Server-side rendering benefits
 
 ### Design Optimization Suggestions
-- Header design could be enhanced with parallax scrolling effects
+- Header design could be enhanced with parallax scrolling effects, eg an "introducing" text that hides under a sofa while user scrolls.
 - Text elements could interact with scroll positions for dynamic visual appeal
 - Consider implementing progressive image loading for better performance
 
