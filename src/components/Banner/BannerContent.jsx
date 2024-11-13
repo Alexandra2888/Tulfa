@@ -1,7 +1,7 @@
-import { LoadingProgress } from "./LoadingProgress";
-import { VideoContent } from "./VideoContent";
-import { ImageContent } from "./ImageContent";
-import { IntroducingOverlay } from "./IntroducingOverlay";
+import { LoadingProgress } from "./LoadingProgress.jsx";
+import { ImageContent } from "./ImageContent.jsx";
+import { IntroducingOverlay } from "./IntroducingOverlay.jsx";
+import Video from "./Video.jsx";
 
 export const BannerContent = ({ isLoading, loadingProps, contentProps }) => (
   <div className="sticky top-0 w-full h-screen overflow-hidden bg-black">
@@ -10,7 +10,7 @@ export const BannerContent = ({ isLoading, loadingProps, contentProps }) => (
     ) : (
       <div className="relative w-full h-full">
         {contentProps.useFallbackVideo ? (
-          <VideoContent {...contentProps.videoProps} />
+          <Video {...contentProps.videoProps} />
         ) : (
           <ImageContent {...contentProps.imageProps} />
         )}

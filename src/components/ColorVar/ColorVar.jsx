@@ -5,8 +5,6 @@ import { variants } from "../../data/data";
 const ColorVar = () => {
   const [selectedColor, setSelectedColor] = useState("orange");
 
-  
-
   const ColorSelector = ({ isDesktop = false }) => (
     <div
       className={`${

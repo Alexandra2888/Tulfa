@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef, useMemo } from "react";
-import { throttle } from "lodash";
+import { useState, useEffect, useRef } from "react";
+import { useAnimation } from "framer-motion";
 
 export const useScrollAnimation = (
   containerRef,
@@ -8,6 +8,7 @@ export const useScrollAnimation = (
 ) => {
   const [currentFrame, setCurrentFrame] = useState(0);
   const [showIntroducing, setShowIntroducing] = useState(false);
+  const animationControls = useAnimation();
   const animationRef = useRef(null);
 
   const animate = () => {
@@ -31,6 +32,9 @@ export const useScrollAnimation = (
 
       setCurrentFrame(frameIndex);
 
+      // Update Framer Motion animation
+      animationControls.start({ opacity: scrollProgress });
+
       // Show introducing overlay when we're at the last frame
       if (frameIndex >= totalFrames - 2 && !showIntroducing) {
         setShowIntroducing(true);
@@ -42,30 +46,19 @@ export const useScrollAnimation = (
     animationRef.current = requestAnimationFrame(animate);
   };
 
-  const handleScroll = useMemo(
-    () =>
-      throttle(() => {
-        if (animationRef.current) {
-          cancelAnimationFrame(animationRef.current);
-        }
-        animationRef.current = requestAnimationFrame(animate);
-      }, 16),
-    []
-  );
-
   useEffect(() => {
     if (!useFallbackVideo) {
-      window.addEventListener("scroll", handleScroll, { passive: true });
+      window.addEventListener("scroll", animate, { passive: true });
       animationRef.current = requestAnimationFrame(animate);
 
       return () => {
-        window.removeEventListener("scroll", handleScroll);
+        window.removeEventListener("scroll", animate);
         if (animationRef.current) {
           cancelAnimationFrame(animationRef.current);
         }
       };
     }
-  }, [handleScroll, useFallbackVideo]);
+  }, [useFallbackVideo, animationControls]);
 
-  return { currentFrame, showIntroducing };
+  return { currentFrame, showIntroducing, animationControls };
 };
