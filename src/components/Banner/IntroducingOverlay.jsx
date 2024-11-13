@@ -1,12 +1,12 @@
 export const IntroducingOverlay = ({ showIntroducing }) => (
   <div
     className={`absolute inset-0 flex items-center justify-center bg-white
-               transition-opacity duration-1000 ease-in-out
-               ${
-                 showIntroducing
-                   ? "opacity-100"
-                   : "opacity-0 pointer-events-none"
-               }`}
+              transition-opacity duration-1000 ease-in-out
+              ${
+                showIntroducing
+                  ? "opacity-100"
+                  : "opacity-0 pointer-events-none"
+              }`}
   >
     <div className="w-full max-w-6xl mx-auto px-8 py-16">
       <img
