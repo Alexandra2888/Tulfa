@@ -33,7 +33,7 @@ describe("DescriptionCto3", () => {
     const { container } = render(<DescriptionCto3 />);
     const section = container.querySelector("section");
 
-    expect(section).toHaveClass("w-full");
+    expect(section).toHaveClass("min-h-screen");
     expect(section).toHaveClass("flex");
     expect(section).toHaveClass("justify-center");
     expect(section).toHaveClass("items-center");

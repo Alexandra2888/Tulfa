@@ -2,7 +2,7 @@ const SizeVars = () => {
   return (
     <section
       data-testid="size-vars-container"
-      className="relative w-full flex flex-col items-center justify-end sm:justify-center bg-[#F0F3FB] overflow-hidden"
+      className="w-full flex flex-col items-center justify-end sm:justify-center bg-[#F0F3FB] overflow-hidden"
     >
       <div
         data-testid="size-vars-content"
