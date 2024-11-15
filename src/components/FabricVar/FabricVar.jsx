@@ -39,13 +39,16 @@ const FabricVar = () => {
 
                 {/* Fabric Options Overlay */}
                 {showOptions && (
-                    <div className="absolute -top-2 right-0 w-48 bg-white shadow-xl rounded-lg p-[0.04075rem]">
-                      <div className="flex flex-col space-y-2">
+                    <div className="absolute -top-9 right-0 w-48 bg-white shadow-xl rounded-bl-lg">
+                      <div className="flex flex-col">
                         {fabrics.map((fabric) => (
                             <Button
                                 key={fabric.id}
-                                onClick={() => setSelectedFabric(fabric.id)}
-                                className="flex items-center justify-between w-full p-2 hover:bg-gray-100 rounded-md transition-colors"
+                                onClick={() => {
+                                  setSelectedFabric(fabric.id);
+                                  setShowOptions(false);
+                                }}
+                                className="flex items-center justify-between w-full p-4 hover:bg-gray-50 transition-colors"
                             >
                               <span className="text-sm font-medium">{fabric.name}</span>
                               <div className="h-12 w-12 rounded-md overflow-hidden">
