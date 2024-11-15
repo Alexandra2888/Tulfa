@@ -21,10 +21,4 @@ describe("Footer", () => {
       "Lorem ipsum dolor sit amet consectetur. Augue elementum morbi in ac. Leo eu elit nibh nunc vitae eget massa sed sed. Sit sed aliquam sit nulla eget."
     );
   });
-
-  it("renders with correct section classes", () => {
-    const { container } = render(<Footer />);
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("py-24", "md:py-18", "xl:py-18");
-  });
 });

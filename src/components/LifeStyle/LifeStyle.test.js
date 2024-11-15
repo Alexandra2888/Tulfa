@@ -1,51 +1,58 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import LifeStyle from "./LifeStyle";
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import Lifestyle from './Lifestyle';
+import { useScrollScale } from '../../hooks/useScrollScale.js';
 
 // Mock the custom hook
-jest.mock("../../hooks/useScrollScale", () => ({
-  useScrollScale: jest.fn().mockReturnValue(1),
-}));
+jest.mock('../../hooks/useScrollScale.js');
 
-describe("Lifestyle Component", () => {
+describe('Lifestyle', () => {
+  const mockRef = { current: document.createElement('div') };
+
   beforeEach(() => {
+    useScrollScale.mockReturnValue(mockRef);
+  });
+
+  afterEach(() => {
     jest.clearAllMocks();
   });
 
-  test("renders without crashing", () => {
-    render(<LifeStyle />);
-    expect(screen.getByTestId("lifestyle-section")).toBeInTheDocument();
+  it('renders with correct layout classes', () => {
+    const { container } = render(<Lifestyle />);
+    const section = container.querySelector('section');
+    const heading = screen.getByRole('heading', { level: 1 });
+
+    expect(section).toHaveClass('relative', 'w-full', 'h-screen', 'isolate', 'overflow-hidden');
+    expect(heading).toHaveClass('text-white', 'text-6xl', 'font-semibold');
   });
 
-  test("renders the title correctly", () => {
-    render(<LifeStyle />);
-    const title = screen.getByTestId("lifestyle-title");
-    expect(title).toHaveTextContent("Lifestyle Scenes");
-  });
-
-  test("contains zoom container with correct scale transform", () => {
-    render(<LifeStyle />);
-    const zoomContainer = screen.getByTestId("zoom-container");
-    expect(zoomContainer).toHaveStyle({ transform: "scale(1)" });
-  });
-
-  test("background image has correct styling", () => {
-    render(<LifeStyle />);
-    const backgroundImage = screen.getByTestId("background-image");
-    expect(backgroundImage).toHaveStyle({
-      backgroundPosition: "50%",
-      backgroundRepeat: "no-repeat",
-      transform: "scale(1.01)",
+  it('calls useScrollScale with correct props', () => {
+    render(<Lifestyle />);
+    expect(useScrollScale).toHaveBeenCalledWith({
+      maxScale: 1.3,
+      initialScale: 1
     });
   });
 
-  test("content overlay is present", () => {
-    render(<LifeStyle />);
-    const overlay = screen.getByTestId("content-overlay");
-    expect(overlay).toBeInTheDocument();
-    expect(overlay).toHaveClass(
-      "relative h-screen w-full flex items-start md:items-center"
-    );
+  it('renders background div with correct styles', () => {
+    render(<Lifestyle />);
+    const bgDiv = screen.getByTestId('background-div');
+
+    expect(bgDiv).toHaveStyle({
+      backgroundImage: expect.stringContaining('modern-living-room'),
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat'
+    });
+  });
+
+  it('applies zoom ref to correct element', () => {
+    const { container } = render(<Lifestyle />);
+    const zoomElement = container.querySelector('.absolute.inset-0');
+
+    expect(zoomElement).toBeInTheDocument();
+    expect(zoomElement).toHaveStyle({
+      willChange: 'transform',
+      transformOrigin: 'center'
+    });
   });
 });

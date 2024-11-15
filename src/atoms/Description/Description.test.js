@@ -19,12 +19,14 @@ describe("Description Component", () => {
       "text-[#2A266A]",
       "mx-auto",
       "text-xl",
-      "xl:text-[1.625rem]",
       "font-normal",
       "leading-relaxed",
       "px-12",
       "xl:px-36",
-      "xl:max-w-6xl",
+      "py-24",
+      "md:py-16",
+      "xl:py-24",
+      "xl:max-w-5xl"
     ];
 
     defaultStyles.forEach((style) => {

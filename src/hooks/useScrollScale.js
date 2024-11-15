@@ -1,34 +1,35 @@
-import { useState, useEffect } from "react";
+import { useRef, useEffect } from 'react';
 
-export const useScrollScale = ({
-  maxScale = 1.2,
-  scrollRange = window.innerHeight,
-  initialScale = 1,
-  scaleFactor = 0.5,
-}) => {
-  const [scale, setScale] = useState(initialScale);
+export const useScrollScale = ({ maxScale = 1.2, initialScale = 1 } = {}) => {
+  const ref = useRef(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
+    const element = ref.current;
+    if (!element) return;
 
-      // Calculate new scale based on scroll position
-      const newScale = Math.min(
-        maxScale,
-        initialScale + (scrollPosition / scrollRange) * scaleFactor
-      );
+    const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) {
+              element.style.transform = `scale(${initialScale})`;
+              return;
+            }
 
-      setScale(newScale);
-    };
+            const ratio = entry.intersectionRatio;
+            const scale = initialScale + (maxScale - initialScale) * ratio;
+            element.style.transform = `scale(${scale})`;
+          });
+        },
+        {
+          threshold: Array.from({ length: 100 }, (_, i) => i / 100),
+          root: null,
+          rootMargin: "0px"
+        }
+    );
 
-    // Add scroll event listener
-    window.addEventListener("scroll", handleScroll);
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [maxScale, initialScale]);
 
-    // Clean up
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [maxScale, scrollRange, initialScale, scaleFactor]);
-
-  return scale;
+  return ref;
 };
-
-export default useScrollScale;

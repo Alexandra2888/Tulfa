@@ -5,7 +5,7 @@ import ColorVar from "./ColorVar";
 
 
 // Mock data for variants
-export const mockVariants = {
+ const mockVariants = {
   orange: {
     gradient: ["#FFA500", "#FF8C00"],
     images: ["/orange-main.jpg", "/orange-secondary.jpg"],
