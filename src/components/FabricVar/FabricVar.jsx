@@ -9,67 +9,123 @@ const FabricVar = () => {
   const selectedFabricData = fabrics.find((f) => f.id === selectedFabric) || fabrics[0];
 
   return (
-      <section className="container mx-auto px-4 pt-8">
-        <div className="flex flex-col md:flex-row md:gap-12 lg:gap-24">
-          {/* Couch Preview */}
-          <div className="w-full md:w-1/2 flex items-center justify-center mb-8 md:mb-0">
-            <div className="relative w-full max-w-xl">
-              <img
-                  src={selectedFabricData.couchImage}
-                  alt={`${selectedFabricData.name} couch`}
-                  className="w-full object-contain"
-              />
+      <section className="w-full h-full bg-white" data-testid="fabric-var-section">
+        <div className="grid grid-cols-1 md:grid-cols-2 h-full">
+          {/* Mobile Layout */}
+          <div className="flex flex-col md:hidden w-full relative">
+            {/* Couch Preview */}
+            <div className="w-full mb-4">
+              <div className="aspect-[4/3] w-full">
+                <img
+                    src={selectedFabricData.couchImage}
+                    alt={`${selectedFabricData.name} couch`}
+                    className="w-full h-full object-contain"
+                    data-testid="couch-image-mobile"
+                />
+              </div>
             </div>
-          </div>
 
-          {/* Fabric Selection */}
-          <div className="w-full md:w-1/2 flex flex-col items-center md:items-start">
-            {/* Fabric Detail View */}
-            <div className="relative w-full">
-              <div
-                  className="h-[33.88rem] w-full overflow-hidden cursor-pointer md:-mt-10 xl:-mt-9"
-                  onMouseEnter={() => setShowOptions(true)}
-                  onMouseLeave={() => setShowOptions(false)}
-              >
+            {/* Fabric Preview with fixed width */}
+            <div
+                className="w-full h-[300px] relative overflow-hidden"
+                onClick={() => setShowOptions(!showOptions)}
+            >
+              <div className="absolute inset-0 flex items-center justify-center">
                 <img
                     src={selectedFabricData.fabricPiece}
                     alt={`${selectedFabricData.name} fabric detail`}
-                    className="h-full w-full object-cover"
+                    className="w-full h-full object-cover"
+                    data-testid="fabric-image-mobile"
                 />
-
-                {/* Fabric Options Overlay */}
-                {showOptions && (
-                    <div
-                        className={`absolute bg-white shadow-xl
-                    ${window.innerWidth < 768
-                            ? 'bottom-0 left-0 right-0 rounded-t-lg'
-                            : 'w-48 -top-5 xl:-top-9 right-0 rounded-bl-lg'
-                        }`}
-                    >
-                      <div className="flex flex-col">
-                        {fabrics.map((fabric) => (
-                            <Button
-                                key={fabric.id}
-                                onClick={() => {
-                                  setSelectedFabric(fabric.id);
-                                  setShowOptions(false);
-                                }}
-                                className="flex items-center justify-between w-full p-4 hover:bg-gray-50 transition-colors"
-                            >
-                              <span className="text-sm font-medium">{fabric.name}</span>
-                              <div className="h-12 w-12 rounded-md overflow-hidden">
-                                <img
-                                    src={fabric.fabricPiece}
-                                    alt={fabric.name}
-                                    className="h-full w-full object-cover"
-                                />
-                              </div>
-                            </Button>
-                        ))}
-                      </div>
-                    </div>
-                )}
               </div>
+            </div>
+
+            {/* Mobile Fabric Selector  */}
+            {showOptions && (
+                <div className="absolute bottom-0 left-[40%] bg-white shadow-lg rounded-bl-lg">
+                  <div className="flex flex-col">
+                    {fabrics.map((fabric) => (
+                        <Button
+                            key={fabric.id}
+                            onClick={() => {
+                              setSelectedFabric(fabric.id);
+                              setShowOptions(false);
+                            }}
+                            className="flex items-center justify-between w-full p-4 hover:bg-gray-50 transition-colors"
+                        >
+                          <span className="text-sm font-medium">{fabric.name}</span>
+                          <div className="h-12 w-12 rounded-md overflow-hidden">
+                            <img
+                                src={fabric.fabricPiece}
+                                alt={fabric.name}
+                                className="h-full w-full object-cover"
+                            />
+                          </div>
+                        </Button>
+                    ))}
+                  </div>
+                </div>
+            )}
+          </div>
+
+          {/* Desktop Layout */}
+          <div className="hidden md:flex flex-col items-center justify-center p-8 h-full">
+            <div className="w-full max-w-2xl relative">
+              <div className="aspect-[4/3] w-full">
+                <img
+                    src={selectedFabricData.couchImage}
+                    alt={`${selectedFabricData.name} couch`}
+                    className="w-full h-full object-contain"
+                    data-testid="couch-image-desktop"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Fabric Preview */}
+          <div className="hidden md:flex relative flex-col items-center justify-center bg-[#F0F3FB] h-full">
+            <div
+                className="w-full h-full relative cursor-pointer"
+                onMouseEnter={() => setShowOptions(true)}
+                onMouseLeave={() => setShowOptions(false)}
+            >
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-full h-full">
+                  <img
+                      src={selectedFabricData.fabricPiece}
+                      alt={`${selectedFabricData.name} fabric detail`}
+                      className="w-full h-full object-cover"
+                      data-testid="fabric-image-desktop"
+                  />
+                </div>
+              </div>
+
+              {/* Desktop Fabric Selector */}
+              {showOptions && (
+                  <div className="absolute w-48 top-0 right-0 bg-white shadow-xl rounded-bl-lg">
+                    <div className="flex flex-col">
+                      {fabrics.map((fabric) => (
+                          <Button
+                              key={fabric.id}
+                              onClick={() => {
+                                setSelectedFabric(fabric.id);
+                                setShowOptions(false);
+                              }}
+                              className="flex items-center justify-between w-full p-4 hover:bg-gray-50 transition-colors"
+                          >
+                            <span className="text-sm font-medium">{fabric.name}</span>
+                            <div className="h-12 w-12 rounded-md overflow-hidden">
+                              <img
+                                  src={fabric.fabricPiece}
+                                  alt={fabric.name}
+                                  className="h-full w-full object-cover"
+                              />
+                            </div>
+                          </Button>
+                      ))}
+                    </div>
+                  </div>
+              )}
             </div>
           </div>
         </div>
