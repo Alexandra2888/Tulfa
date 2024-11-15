@@ -210,7 +210,7 @@ const ProductSilo = () => {
               <Title text="Product Silos" />
               <Button
                   onClick={() => setIsOpen(true)}
-                  className="flex items-center gap-2 px-6 py-2 my-8 border border-[#2A266A] rounded-full text-sm text-[#2A266A] hover:bg-[#2A266A] hover:text-white transition-colors"
+                  className="flex items-center gap-2 px-6 py-2 mx-12  border border-[#2A266A] rounded-full text-sm text-[#2A266A] hover:bg-[#2A266A] hover:text-white transition-colors"
                   data-testid="open-modal-button"
               >
                 <span className="text-lg">+</span>
