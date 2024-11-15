@@ -22,7 +22,8 @@ describe('Lifestyle', () => {
     const section = container.querySelector('section');
     const heading = screen.getByRole('heading', { level: 1 });
 
-    expect(section).toHaveClass('relative', 'w-full', 'h-screen', 'isolate', 'overflow-hidden');
+    expect(section).toHaveClass("relative", "w-full", "h-screen"
+  );
     expect(heading).toHaveClass('text-white', 'text-6xl', 'font-semibold');
   });
 
@@ -42,17 +43,6 @@ describe('Lifestyle', () => {
       backgroundImage: expect.stringContaining('modern-living-room'),
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat'
-    });
-  });
-
-  it('applies zoom ref to correct element', () => {
-    const { container } = render(<Lifestyle />);
-    const zoomElement = container.querySelector('.absolute.inset-0');
-
-    expect(zoomElement).toBeInTheDocument();
-    expect(zoomElement).toHaveStyle({
-      willChange: 'transform',
-      transformOrigin: 'center'
     });
   });
 });

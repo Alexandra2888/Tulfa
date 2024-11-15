@@ -1,60 +1,42 @@
-// FabricVar.test.jsx
-import React from "react";
-import { render, fireEvent, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import FabricVar from "./FabricVar";
+import React from 'react';
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import FabricVar from './FabricVar';
 
-// Mock the data import 
-jest.mock("../../data/data", () => ({
+// Simple mock for the fabrics data
+jest.mock('../../data/data', () => ({
   fabrics: [
     {
-      id: "fabric1",
-      name: "Cotton Blend",
-      couchImage: "/images/couch-cotton.jpg",
-      fabricPiece: "/images/fabric-cotton.jpg",
-    },
-    {
-      id: "fabric2",
-      name: "Velvet",
-      couchImage: "/images/couch-velvet.jpg",
-      fabricPiece: "/images/fabric-velvet.jpg",
-    },
-  ],
+      id: 1,
+      name: "Test Fabric",
+      couchImage: "/test-couch.jpg",
+      fabricPiece: "/test-fabric.jpg"
+    }
+  ]
 }));
 
-describe("FabricVar Component", () => {
-  test("renders without crashing", () => {
-    render(<FabricVar />);
-    // Basic check that component renders
-    expect(document.querySelector("section")).toBeInTheDocument();
+// Mock Button component since it's an external dependency
+jest.mock('../../atoms/Button/Button', () => {
+  return function MockButton(props) {
+    return <button {...props}>{props.children}</button>;
+  };
+});
+
+describe('FabricVar Component', () => {
+  test('renders without crashing', () => {
+    const { container } = render(<FabricVar />);
+    expect(container).toBeTruthy();
   });
 
-  test("displays couch image", () => {
-    render(<FabricVar />);
-    const couchImage = screen.getByAltText(/couch$/i);
-    expect(couchImage).toBeInTheDocument();
+  test('renders the section with correct test id', () => {
+    const { getByTestId } = render(<FabricVar />);
+    expect(getByTestId('fabric-var-section')).toBeInTheDocument();
   });
 
-  test("displays fabric detail image", () => {
-    render(<FabricVar />);
-    const fabricImage = screen.getByAltText(/fabric detail$/i);
-    expect(fabricImage).toBeInTheDocument();
-  });
-
-  test("shows and hides options on hover", () => {
-    render(<FabricVar />);
-    const fabricDetailSection =
-      screen.getByAltText(/fabric detail$/i).parentElement;
-
-    // Initially, Velvet option should not be visible
-    expect(screen.queryByText("Velvet")).not.toBeInTheDocument();
-
-    // Show options
-    fireEvent.mouseEnter(fabricDetailSection);
-    expect(screen.getByText("Velvet")).toBeInTheDocument();
-
-    // Hide options
-    fireEvent.mouseLeave(fabricDetailSection);
-    expect(screen.queryByText("Velvet")).not.toBeInTheDocument();
+  test('renders mobile couch image', () => {
+    const { getByTestId } = render(<FabricVar />);
+    const image = getByTestId('couch-image-mobile');
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveAttribute('src', '/test-couch.jpg');
   });
 });

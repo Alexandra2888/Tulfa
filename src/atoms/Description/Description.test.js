@@ -18,7 +18,6 @@ describe("Description Component", () => {
       "text-center",
       "text-[#2A266A]",
       "mx-auto",
-      "text-xl",
       "font-normal",
       "leading-relaxed",
       "px-12",
@@ -26,7 +25,8 @@ describe("Description Component", () => {
       "py-24",
       "md:py-16",
       "xl:py-24",
-      "xl:max-w-5xl"
+      "xl:max-w-5xl",
+      "text-[1.05881rem]"
     ];
 
     defaultStyles.forEach((style) => {

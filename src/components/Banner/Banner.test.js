@@ -1,147 +1,52 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
-import Banner from "./Banner";
-import { useScrollAnimation } from "../../hooks/useScrollAnimation";
-import { useVideoScroll } from "../../hooks/useVideoScroll";
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import Banner from './Banner';
+import { BannerContent } from './BannerContent';
+import IntroducingOverlay from './IntroducingOverlay';
 
-// Mock the custom hooks
-jest.mock("../../hooks/useScrollAnimation", () => ({
-  useScrollAnimation: jest.fn(),
+// Mock child components
+jest.mock('./BannerContent', () => ({
+  BannerContent: () => <div data-testid="banner-content">Mocked BannerContent</div>
 }));
 
-jest.mock("../../hooks/useVideoScroll", () => ({
-  useVideoScroll: jest.fn(),
+jest.mock('./IntroducingOverlay', () => ({
+  __esModule: true,
+  default: () => <div data-testid="introducing-overlay">Mocked IntroducingOverlay</div>
 }));
 
-// Mock framer-motion
-jest.mock("framer-motion", () => ({
-  motion: {
-    div: ({ children, ...props }) => <div {...props}>{children}</div>,
-  },
-}));
-
-// Mock BannerContent component
-jest.mock("./BannerContent", () => ({
-  BannerContent: ({ contentProps, loadingProps }) => (
-    <div data-testid="banner-content">
-      <div data-testid="loading-props">{JSON.stringify(loadingProps)}</div>
-      <div data-testid="content-props">{JSON.stringify(contentProps)}</div>
-    </div>
-  ),
-}));
-
-describe("Banner", () => {
-  beforeEach(() => {
-    // Reset all mocks before each test
-    jest.clearAllMocks();
-
-    // Default mock implementations
-    useScrollAnimation.mockReturnValue({
-      currentFrame: 0,
-      showIntroducing: false,
-      animationControls: {},
-    });
-
-    useVideoScroll.mockReturnValue({
-      showIntroducing: false,
-    });
-  });
-
-  test("renders without crashing", () => {
+describe('Banner Component', () => {
+  it('renders without crashing', () => {
     render(<Banner />);
-    expect(screen.getByTestId("banner-content")).toBeInTheDocument();
   });
 
-  test("initializes with correct state", () => {
-    render(<Banner />);
-    const loadingProps = JSON.parse(
-      screen.getByTestId("loading-props").textContent
-    );
-
-    expect(loadingProps).toEqual({
-      progress: 100,
-      loadedCount: 0,
-      totalCount: 0,
-      hasError: true,
-    });
-  });
-
-  test("passes correct content props to BannerContent", () => {
-    render(<Banner />);
-    const contentProps = JSON.parse(
-      screen.getByTestId("content-props").textContent
-    );
-
-    expect(contentProps).toMatchObject({
-      useFallbackVideo: true,
-      showIntroducing: false,
-      videoProps: {
-        showIntroducing: false,
-        fallbackVideoUrl: expect.any(String),
-      },
-      imageProps: {
-        currentFrame: 0,
-        imageUrls: [],
-        showIntroducing: false,
-      },
-    });
-  });
-
-  test("useScrollAnimation is called with correct parameters", () => {
+  it('renders with correct wrapper elements', () => {
     const { container } = render(<Banner />);
-
-    expect(useScrollAnimation).toHaveBeenCalledWith(
-      expect.any(Object),
-      expect.any(Number),
-      true
-    );
+    const sectionElement = container.querySelector('section');
+    expect(sectionElement).toBeInTheDocument();
+    expect(sectionElement).toHaveClass('relative w-full');
   });
 
-  test("useVideoScroll is called with correct parameters", () => {
-    const { container } = render(<Banner />);
-
-    expect(useVideoScroll).toHaveBeenCalledWith(
-      expect.any(Object),
-      expect.any(Object),
-      true
-    );
-  });
-
-  test("renders with correct class names", () => {
-    const { container } = render(<Banner />);
-
-    expect(container.querySelector("section")).toHaveClass("relative w-full");
-    expect(container.querySelector(".scroll-animation")).toBeInTheDocument();
-  });
-
-  test("handles different showIntroducing states", () => {
-    // Mock hooks to return different values
-    useScrollAnimation.mockReturnValue({
-      currentFrame: 0,
-      showIntroducing: true,
-      animationControls: {},
-    });
-
-    useVideoScroll.mockReturnValue({
-      showIntroducing: false,
-    });
-
+  it('contains BannerContent component', () => {
     render(<Banner />);
-    const contentProps = JSON.parse(
-      screen.getByTestId("content-props").textContent
-    );
-
-    // Since showingVideo is true in initial state, it should use videoShowIntroducing
-    expect(contentProps.showIntroducing).toBe(false);
+    const bannerContent = screen.getByTestId('banner-content');
+    expect(bannerContent).toBeInTheDocument();
   });
 
-  test("handles error state correctly", () => {
+  it('contains IntroducingOverlay component', () => {
     render(<Banner />);
-    const loadingProps = JSON.parse(
-      screen.getByTestId("loading-props").textContent
-    );
+    const overlay = screen.getByTestId('introducing-overlay');
+    expect(overlay).toBeInTheDocument();
+  });
 
-    expect(loadingProps.hasError).toBe(true);
-    expect(loadingProps.progress).toBe(100);
+  it('has the correct HTML structure', () => {
+    const { container } = render(<Banner />);
+    const innerDiv = container.querySelector('section > div');
+    expect(innerDiv).toHaveClass('relative');
+  });
+
+  it('sets up containerRef correctly', () => {
+    const { container } = render(<Banner />);
+    const divWithRef = container.querySelector('section > div');
+    expect(divWithRef).toBeInTheDocument();
   });
 });

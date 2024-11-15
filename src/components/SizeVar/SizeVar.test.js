@@ -42,14 +42,18 @@ describe("SizeVars Component", () => {
   test("container has correct base styling classes", () => {
     const container = screen.getByTestId("size-vars-container");
     expect(container).toHaveClass(
-      "relative",
-      "w-full",
-      "flex",
-      "flex-col",
-      "items-center",
-      "justify-end",
-      "bg-[#F0F3FB]",
-      "overflow-hidden"
-    );
+        "w-full",
+        "flex",
+        "flex-col",
+        "items-center",
+        "justify-start",
+        "sm:justify-center",
+        "bg-[#F0F3FB]",
+        "overflow-hidden",
+        "pt-4",
+        "sm:pt-8"
+
+
+  );
   });
 });
