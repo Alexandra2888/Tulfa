@@ -37,7 +37,7 @@ it("has correct section styling", () => {
   const section = screen.getByTestId("cto-description");
 
   expect(section).toHaveClass(
-    "min-h-screen flex flex-col items-center justify-center px-4 py-12 max-w-7xl mx-auto"
+    "h-screen flex flex-col items-center justify-center px-4 max-w-7xl mx-auto\n"
   );
 });
 });

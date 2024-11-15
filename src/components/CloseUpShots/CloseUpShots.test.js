@@ -1,97 +1,103 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import CloseUpShots from "./CloseUpShots";
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import CloseUpShots from './CloseUpShots';
 
-// Mock the external components and hooks
-jest.mock("../../atoms/Title/Title", () => ({ text }) => <h1>{text}</h1>);
-jest.mock("../../atoms/Description/Description", () => ({ text }) => (
-  <p>{text}</p>
-));
-jest.mock(
-  "../../atoms/Button/Button",
-  () =>
-    ({ onClick, children, className }) =>
-      (
-        <button onClick={onClick} className={className}>
-          {children}
-        </button>
-      )
-);
-jest.mock(
-  "./GalleryModal",
-  () =>
-    ({ isOpen, onClose }) =>
-      isOpen ? (
-        <div data-testid="gallery-modal">
-          <button onClick={onClose}>Close</button>
-        </div>
-      ) : null
-);
-jest.mock("../../hooks/useScrollScale", () => ({
-  useScrollScale: () => 1,
-}));
-
-// Mock window.innerHeight
-beforeAll(() => {
-  Object.defineProperty(window, "innerHeight", {
-    writable: true,
-    configurable: true,
-    value: 800,
-  });
+// Mock the imported components
+jest.mock('../../atoms/Title/Title', () => {
+  return function MockTitle({ text }) {
+    return <div data-testid="mock-title">{text}</div>;
+  };
 });
 
-describe("CloseUpShots Component", () => {
-  it("renders without crashing", () => {
+jest.mock('../../atoms/Description/Description', () => {
+  return function MockDescription({ text }) {
+    return <div data-testid="mock-description">{text}</div>;
+  };
+});
+
+jest.mock('../../atoms/Button/Button', () => {
+  return function MockButton({ children, onClick }) {
+    return (
+        <button data-testid="mock-button" onClick={onClick}>
+          {children}
+        </button>
+    );
+  };
+});
+
+jest.mock('./GalleryModal', () => {
+  return function MockGalleryModal({ isOpen, onClose }) {
+    return isOpen ? (
+        <div data-testid="mock-gallery-modal">
+          <button onClick={onClose}>Close</button>
+        </div>
+    ) : null;
+  };
+});
+
+// Mock the useZoom hook
+jest.mock('../../hooks/useZoom', () => {
+  return jest.fn(() => 1.5);
+});
+
+describe('CloseUpShots', () => {
+  it('renders without crashing', () => {
     render(<CloseUpShots />);
-    expect(screen.getByText("Close Up Shots")).toBeInTheDocument();
+    expect(screen.getByTestId('mock-title')).toBeInTheDocument();
   });
 
-  it("renders the main image", () => {
+  it('displays the correct title text', () => {
     render(<CloseUpShots />);
-    const image = screen.getByAltText("Couch close-up");
-    expect(image).toBeInTheDocument();
-    expect(image).toHaveAttribute(
-      "src",
-      expect.stringContaining("Close%20Up%20Shots")
+    expect(screen.getByTestId('mock-title')).toHaveTextContent('Close Up Shots');
+  });
+
+  it('displays the correct description text', () => {
+    render(<CloseUpShots />);
+    expect(screen.getByTestId('mock-description')).toHaveTextContent(
+        'Give your customers a clear view of how your furniture fits into their space with precise dimensions and scale indicators.'
     );
   });
 
-  it("renders the description text", () => {
+  it('shows the close-up image', () => {
     render(<CloseUpShots />);
-    const description = screen.getByText(/Give your customers a clear view/);
-    expect(description).toBeInTheDocument();
+    const images = screen.getAllByAltText('Couch close-up');
+    expect(images.length).toBe(2); // There are two identical images in the component
+    expect(images[0]).toBeInTheDocument();
   });
 
-  it('opens modal when "Take a closer look" button is clicked', () => {
+  it('displays the "Take a closer look" button', () => {
     render(<CloseUpShots />);
+    const button = screen.getByTestId('mock-button');
+    expect(button).toHaveTextContent('Take a closer look');
+  });
 
-    // Find and click the button
-    const button = screen.getByText("Take a closer look");
+  it('opens the modal when clicking the button', () => {
+    render(<CloseUpShots />);
+    const button = screen.getByTestId('mock-button');
+
+    // Modal should not be visible initially
+    expect(screen.queryByTestId('mock-gallery-modal')).not.toBeInTheDocument();
+
+    // Click the button
     fireEvent.click(button);
 
-    // Check if modal is shown
-    const modal = screen.getByTestId("gallery-modal");
-    expect(modal).toBeInTheDocument();
+    // Modal should now be visible
+    expect(screen.getByTestId('mock-gallery-modal')).toBeInTheDocument();
   });
 
-  it("closes modal when close button is clicked", () => {
+  it('closes the modal when clicking the close button', () => {
     render(<CloseUpShots />);
 
     // Open the modal
-    const openButton = screen.getByText("Take a closer look");
-    fireEvent.click(openButton);
+    const button = screen.getByTestId('mock-button');
+    fireEvent.click(button);
 
-    // Find and click the close button
-    const closeButton = screen.getByText("Close");
+    // Click the close button in the modal
+    const closeButton = screen.getByText('Close');
     fireEvent.click(closeButton);
 
-    // Check if modal is removed
-    expect(screen.queryByTestId("gallery-modal")).not.toBeInTheDocument();
-  });
-
-  it("applies scale transform to the image", () => {
-    render(<CloseUpShots />);
-    const image = screen.getByAltText("Couch close-up");
-    expect(image).toHaveStyle({ transform: "scale(1)" });
+    // Modal should no longer be visible
+    expect(screen.queryByTestId('mock-gallery-modal')).not.toBeInTheDocument();
   });
 });

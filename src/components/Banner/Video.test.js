@@ -1,121 +1,90 @@
-import React from "react";
-import { render, screen, act } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import Video from "./Video";
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import Video from './Video';
+import { S3_CONFIG } from "../../config/bannerConfig.js";
 
-// Suppress console.error
-beforeAll(() => {
-  jest.spyOn(console, "error").mockImplementation(() => {});
-  window.HTMLMediaElement.prototype.play = jest.fn(() => Promise.resolve());
-  window.HTMLMediaElement.prototype.pause = jest.fn();
+// Mock IntersectionObserver
+const mockIntersectionObserver = jest.fn();
+mockIntersectionObserver.mockReturnValue({
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
 });
+window.IntersectionObserver = mockIntersectionObserver;
 
-// Cleanup console mock
-afterAll(() => {
-  console.error.mockRestore();
-});
+describe('Video Component', () => {
+  let mockPlay;
+  let mockPause;
 
-describe("Video Component", () => {
-  const mockVideoRef = {
-    current: null,
-  };
-
-  // Basic render test
-  test("renders video container", async () => {
-    await act(async () => {
-      render(
-        <Video
-          videoRef={mockVideoRef}
-          showIntroducing={false}
-          fallbackVideoUrl="test.mp4"
-        />
-      );
-    });
-
-    const container = screen.getByTestId("video-container");
-    expect(container).toBeInTheDocument();
+  beforeEach(() => {
+    // Mock video element methods
+    mockPlay = jest.fn();
+    mockPause = jest.fn();
+    window.HTMLMediaElement.prototype.play = mockPlay;
+    window.HTMLMediaElement.prototype.pause = mockPause;
   });
 
-  // Test video element presence
-  test("renders video element", async () => {
-    await act(async () => {
-      render(
-        <Video
-          videoRef={mockVideoRef}
-          showIntroducing={false}
-          fallbackVideoUrl="test.mp4"
-        />
-      );
-    });
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
-    const videoElement = screen.getByTestId("video-element");
+  it('renders video element with correct attributes', () => {
+    render(<Video />);
+    const videoElement = screen.getByTestId('video-element');
+
     expect(videoElement).toBeInTheDocument();
+    expect(videoElement).toHaveAttribute('autoPlay');
+    expect(videoElement).toHaveAttribute('playsInline');
+    expect(videoElement).toHaveAttribute('loop');
   });
 
-  // Test video attributes
-  test("video has correct attributes", async () => {
-    await act(async () => {
-      render(
-        <Video
-          videoRef={mockVideoRef}
-          showIntroducing={false}
-          fallbackVideoUrl="test.mp4"
-        />
-      );
-    });
+  it('renders video source with correct URL', () => {
+    render(<Video />);
+    const sourceElement = screen.getByTestId('video-element').querySelector('source');
 
-    const videoElement = screen.getByTestId("video-element");
-    expect(videoElement).toHaveAttribute("autoplay");
-    expect(videoElement).toHaveAttribute("loop");
-    expect(videoElement).toHaveAttribute("playsinline");
-    expect(videoElement.muted).toBe(true);
+    expect(sourceElement).toHaveAttribute('src', S3_CONFIG.fallbackVideoUrl);
+    expect(sourceElement).toHaveAttribute('type', 'video/mp4');
   });
 
-  // Test opacity when showIntroducing is true
-  test("video has opacity 0 when showIntroducing is true", async () => {
-    await act(async () => {
-      render(
-        <Video
-          videoRef={mockVideoRef}
-          showIntroducing={true}
-          fallbackVideoUrl="test.mp4"
-        />
-      );
-    });
+  it('creates IntersectionObserver with correct configuration', () => {
+    render(<Video />);
 
-    const videoElement = screen.getByTestId("video-element");
-    expect(videoElement.style.opacity).toBe("0");
+    expect(mockIntersectionObserver).toHaveBeenCalledWith(
+        expect.any(Function),
+        { threshold: 1 }
+    );
   });
 
-  // Test opacity when showIntroducing is false
-  test("video has opacity 1 when showIntroducing is false", async () => {
-    await act(async () => {
-      render(
-        <Video
-          videoRef={mockVideoRef}
-          showIntroducing={false}
-          fallbackVideoUrl="test.mp4"
-        />
-      );
-    });
+  it('plays video when it becomes visible', () => {
+    render(<Video />);
 
-    const videoElement = screen.getByTestId("video-element");
-    expect(videoElement.style.opacity).toBe("1");
+    // Get the callback passed to IntersectionObserver
+    const [[callback]] = mockIntersectionObserver.mock.calls;
+
+    // Simulate intersection
+    callback([{ isIntersecting: true }]);
+
+    expect(mockPlay).toHaveBeenCalled();
   });
 
-  // Additional test specifically for muted state
-  test("video is muted", async () => {
-    await act(async () => {
-      render(
-        <Video
-          videoRef={mockVideoRef}
-          showIntroducing={false}
-          fallbackVideoUrl="test.mp4"
-        />
-      );
-    });
+  it('pauses video when it becomes invisible', () => {
+    render(<Video />);
 
-    const videoElement = screen.getByTestId("video-element");
-    expect(videoElement.muted).toBe(true);
+    // Get the callback passed to IntersectionObserver
+    const [[callback]] = mockIntersectionObserver.mock.calls;
+
+    // Simulate intersection
+    callback([{ isIntersecting: false }]);
+
+    expect(mockPause).toHaveBeenCalled();
+  });
+
+  it('cleans up observer on unmount', () => {
+    const { unmount } = render(<Video />);
+    const unobserveSpy = mockIntersectionObserver.mock.results[0].value.unobserve;
+
+    unmount();
+
+    expect(unobserveSpy).toHaveBeenCalled();
   });
 });

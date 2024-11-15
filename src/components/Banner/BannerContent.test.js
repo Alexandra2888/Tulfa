@@ -1,190 +1,112 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
-import { BannerContent } from "./BannerContent";
-import { LoadingProgress } from "./LoadingProgress";
-import { IntroducingOverlay } from "./IntroducingOverlay";
-import Video from "./Video";
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import { BannerContent } from './BannerContent';
+import Video from './Video';
 
-// Mock child components
-jest.mock("./LoadingProgress", () => ({
-  LoadingProgress: jest.fn(() => (
-    <div data-testid="loading-progress" data-id="banner-loading-progress">
-      Loading Progress
-    </div>
-  )),
-}));
+// Mock the Video component
+jest.mock('./Video', () => {
+  return jest.fn(() => <div data-testid="mock-video">Mock Video</div>);
+});
 
-jest.mock("./ImageContent", () => ({
-  ImageContent: jest.fn(() => (
-    <div data-testid="image-content" data-id="banner-image">
-      Image Content
-    </div>
-  )),
-}));
+// Mock the LoadingProgress component since it's used but not imported
+const LoadingProgress = jest.fn(() => <div data-testid="mock-loading">Loading...</div>);
+global.LoadingProgress = LoadingProgress;
 
-jest.mock("./IntroducingOverlay", () => ({
-  IntroducingOverlay: jest.fn(() => (
-    <div data-testid="introducing-overlay" data-id="banner-introducing-overlay">
-      Introducing Overlay
-    </div>
-  )),
-}));
+describe('BannerContent', () => {
+  const defaultVideoProps = {
+    src: 'test-video.mp4',
+    autoPlay: true
+  };
 
-jest.mock("./Video", () => ({
-  __esModule: true,
-  default: jest.fn(() => (
-    <div data-testid="video-component" data-id="banner-video">
-      Video Component
-    </div>
-  )),
-}));
+  const defaultLoadingProps = {
+    progress: 50,
+    text: 'Loading...'
+  };
 
-describe("BannerContent", () => {
   beforeEach(() => {
     // Clear mock calls between tests
-    LoadingProgress.mockClear();
-    ImageContent.mockClear();
-    IntroducingOverlay.mockClear();
     Video.mockClear();
+    LoadingProgress.mockClear();
   });
 
-  it("renders container with correct data-id", () => {
-    const { container } = render(
-      <BannerContent
-        isLoading={false}
-        contentProps={{ useFallbackVideo: false, imageProps: {} }}
-      />
+  it('renders loading state when isLoading is true', () => {
+    render(
+        <BannerContent
+            isLoading={true}
+            loadingProps={defaultLoadingProps}
+            videoProps={defaultVideoProps}
+        />
     );
-    expect(
-      container.querySelector('[data-id="banner-content-container"]')
-    ).toBeInTheDocument();
-  });
 
-  it("renders loading state with correct data-id", () => {
-    const loadingProps = {
-      progress: 50,
-      message: "Loading...",
-    };
-
-    render(<BannerContent isLoading={true} loadingProps={loadingProps} />);
-
-    expect(screen.getByTestId("loading-progress")).toHaveAttribute(
-      "data-id",
-      "banner-loading-progress"
-    );
+    const loadingElement = screen.getByTestId('mock-loading');
+    expect(loadingElement).toBeInTheDocument();
     expect(LoadingProgress).toHaveBeenCalledWith(
-      expect.objectContaining({
-        ...loadingProps,
-        "data-id": "banner-loading-progress",
-      }),
-      {}
+        expect.objectContaining(defaultLoadingProps),
+        expect.any(Object)
     );
   });
 
-  it("renders content wrapper with correct data-id when not loading", () => {
-    const { container } = render(
-      <BannerContent
-        isLoading={false}
-        contentProps={{ useFallbackVideo: false, imageProps: {} }}
-      />
+  it('renders video when isLoading is false', () => {
+    render(
+        <BannerContent
+            isLoading={false}
+            loadingProps={defaultLoadingProps}
+            videoProps={defaultVideoProps}
+            showIntroducing={true}
+        />
     );
-    expect(
-      container.querySelector('[data-id="banner-content-wrapper"]')
-    ).toBeInTheDocument();
-  });
 
-  it("renders video content with correct data-id", () => {
-    const contentProps = {
-      useFallbackVideo: true,
-      videoProps: {
-        videoRef: { current: null },
-        showIntroducing: true,
-        fallbackVideoUrl: "test-video-url",
-      },
-      showIntroducing: true,
-    };
-
-    render(<BannerContent isLoading={false} contentProps={contentProps} />);
-
-    expect(screen.getByTestId("video-component")).toHaveAttribute(
-      "data-id",
-      "banner-video"
-    );
+    const videoElement = screen.getByTestId('mock-video');
+    expect(videoElement).toBeInTheDocument();
     expect(Video).toHaveBeenCalledWith(
-      expect.objectContaining({
-        videoRef: contentProps.videoProps.videoRef,
-        showIntroducing: contentProps.videoProps.showIntroducing,
-        fallbackVideoUrl: contentProps.videoProps.fallbackVideoUrl,
-        "data-id": "banner-video",
-      }),
-      {}
+        expect.objectContaining({
+          ...defaultVideoProps,
+          showIntroducing: true
+        }),
+        expect.any(Object)
     );
   });
 
-  it("renders image content with correct data-id", () => {
-    const contentProps = {
-      useFallbackVideo: false,
-      imageProps: {
-        src: "test-image.jpg",
-        alt: "Test Image",
-      },
-      showIntroducing: true,
-    };
-
-    render(<BannerContent isLoading={false} contentProps={contentProps} />);
-
-    expect(screen.getByTestId("image-content")).toHaveAttribute(
-      "data-id",
-      "banner-image"
-    );
-    expect(ImageContent).toHaveBeenCalledWith(
-      expect.objectContaining({
-        ...contentProps.imageProps,
-        "data-id": "banner-image",
-      }),
-      {}
-    );
-  });
-
-  it("renders IntroducingOverlay with correct data-id", () => {
-    const contentProps = {
-      useFallbackVideo: false,
-      imageProps: {},
-      showIntroducing: true,
-    };
-
-    render(<BannerContent isLoading={false} contentProps={contentProps} />);
-
-    expect(screen.getByTestId("introducing-overlay")).toHaveAttribute(
-      "data-id",
-      "banner-introducing-overlay"
-    );
-    expect(IntroducingOverlay).toHaveBeenCalledWith(
-      expect.objectContaining({
-        showIntroducing: contentProps.showIntroducing,
-        "data-id": "banner-introducing-overlay",
-      }),
-      {}
-    );
-  });
-
-  // Original style tests remain the same
-  it("applies correct container styles", () => {
+  it('renders the container with correct classes', () => {
     const { container } = render(
-      <BannerContent
-        isLoading={false}
-        contentProps={{ useFallbackVideo: false, imageProps: {} }}
-      />
+        <BannerContent
+            isLoading={false}
+            loadingProps={defaultLoadingProps}
+            videoProps={defaultVideoProps}
+        />
     );
 
-    const bannerDiv = container.firstChild;
-    expect(bannerDiv).toHaveClass(
-      "sticky",
-      "top-0",
-      "w-full",
-      "h-screen",
-      "overflow-hidden",
-      "bg-black"
+    const bannerContainer = container.querySelector('[data-id="banner-content-container"]');
+    expect(bannerContainer).toHaveClass('sticky', 'top-0', 'w-full', 'h-screen', 'overflow-hidden', 'bg-black');
+  });
+
+  it('passes showIntroducing prop correctly to Video component', () => {
+    render(
+        <BannerContent
+            isLoading={false}
+            loadingProps={defaultLoadingProps}
+            videoProps={defaultVideoProps}
+            showIntroducing={true}
+        />
     );
+
+    expect(Video).toHaveBeenCalledWith(
+        expect.objectContaining({
+          showIntroducing: true
+        }),
+        expect.any(Object)
+    );
+  });
+
+  it('does not render Video component when loading', () => {
+    render(
+        <BannerContent
+            isLoading={true}
+            loadingProps={defaultLoadingProps}
+            videoProps={defaultVideoProps}
+        />
+    );
+
+    expect(Video).not.toHaveBeenCalled();
   });
 });
