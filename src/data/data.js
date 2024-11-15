@@ -99,26 +99,6 @@ export const fabrics = [
   },
 ];
 
-export const fabric = [
-  {
-    id: "fabric1",
-    name: "Cotton Blend",
-    couchImage: "/images/couch-cotton.jpg",
-    fabricPiece: "/images/fabric-cotton.jpg",
-  },
-  {
-    id: "fabric2",
-    name: "Velvet",
-    couchImage: "/images/couch-velvet.jpg",
-    fabricPiece: "/images/fabric-velvet.jpg",
-  },
-  {
-    id: "fabric3",
-    name: "Linen",
-    couchImage: "/images/couch-linen.jpg",
-    fabricPiece: "/images/fabric-linen.jpg",
-  },
-];
 
 
 export const installationData = {
@@ -190,3 +170,5 @@ export   const images = [
     alt: "Woven cylinder lamp detail",
   },
 ];
+
+

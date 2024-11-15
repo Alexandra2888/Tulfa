@@ -2,7 +2,6 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { BannerContent } from "./BannerContent";
 import { LoadingProgress } from "./LoadingProgress";
-import { ImageContent } from "./ImageContent";
 import { IntroducingOverlay } from "./IntroducingOverlay";
 import Video from "./Video";
 

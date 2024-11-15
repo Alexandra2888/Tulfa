@@ -29,8 +29,8 @@ describe("Title Component", () => {
     render(<Title text="Test" />);
     const titleElement = screen.getByTestId("motion-h2");
     expect(titleElement).toHaveClass(
-      "text-5xl",
-      "xl:text-6xl",
+        "text-4xl",
+        "xl:text-6xl",
       "font-semibold",
       "text-center",
       "md:text-left",
