@@ -2,7 +2,7 @@ const SizeVars = () => {
   return (
     <section
       data-testid="size-vars-container"
-      className="w-full flex flex-col items-center justify-end sm:justify-center bg-[#F0F3FB] overflow-hidden"
+      className="w-full flex flex-col items-center justify-start sm:justify-center bg-[#F0F3FB] overflow-hidden pt-4 sm:pt-8 "
     >
       <div
         data-testid="size-vars-content"
@@ -11,11 +11,11 @@ const SizeVars = () => {
         {/* Large shelf - Back */}
         <div
           data-testid="large-shelf-container"
-          className="relative w-full translate-y-1/4 sm:translate-y-0"
+          className="relative w-full "
         >
           <span
             data-testid="large-shelf-label"
-            className="absolute left-16 sm:left-4 top-[60%] sm:top-[57%] -translate-y-1/2 font-normal text-[#2A266A] text-3xl xl:text-2xl"
+            className="absolute left-16 sm:left-4 top-[60%] sm:top-[57%] font-normal text-[#2A266A] text-3xl xl:text-2xl"
           >
             L
           </span>
@@ -30,7 +30,7 @@ const SizeVars = () => {
         {/* Medium shelf - Middle */}
         <div
           data-testid="medium-shelf-container"
-          className="absolute top-[12%] sm:top-[15%] w-full translate-y-1/4 sm:translate-y-0"
+          className="absolute top-[12%] sm:top-[15%] w-full "
         >
           <span
             data-testid="medium-shelf-label"
@@ -49,11 +49,11 @@ const SizeVars = () => {
         {/* Small shelf - Front */}
         <div
           data-testid="small-shelf-container"
-          className="absolute top-[24%] sm:top-[30%] w-full translate-y-1/4 sm:translate-y-0"
+          className="absolute top-[10%] sm:top-[30%] w-full translate-y-1/4 sm:translate-y-0"
         >
           <span
             data-testid="small-shelf-label"
-            className="absolute left-36 sm:left-16 top-[85%] sm:top-[63%] -translate-y-1/2 font-normal text-[#2A266A] text-3xl xl:text-2xl"
+            className="absolute left-44 sm:left-16 top-[75%] sm:top-[63%] -translate-y-1/2 font-normal text-[#2A266A] text-3xl xl:text-2xl"
           >
             S
           </span>

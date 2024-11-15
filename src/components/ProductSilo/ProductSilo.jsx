@@ -222,7 +222,7 @@ const ProductSilo = () => {
               <img
                   src={images[0].url}
                   alt={images[0].alt}
-                  className="w-full max-w-[300px] md:max-w-[400px] scale-100 object-contain xl:scale-[1.8]"
+                  className="w-full max-w-[300px] md:max-w-[400px] scale-100 object-contain md:scale-[2.5] xl:scale-[1.8]"
                   data-testid="main-product-image"
               />
             </div>

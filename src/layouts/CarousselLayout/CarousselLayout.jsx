@@ -74,8 +74,10 @@ const CarouselLayout = ({ title, description, slides }) => {
 
         {/* Description Section in Container */}
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="w-full max-w-2xl mx-auto my-16 lg:my-24">
-            <Description text={description} className="text-center" />
+          <div className="w-full mx-auto px-4 xl:px-0">
+            <Description
+                text="Give your customers a clear view of how your furniture fits into their space with precise dimensions and scale indicators."
+            />
           </div>
         </div>
       </section>

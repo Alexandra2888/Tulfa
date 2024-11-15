@@ -3,7 +3,7 @@ import Title from "../../atoms/Title/Title.jsx";
 const Callout = () => {
     return (
         <section className="w-full min-h-screen flex flex-col" data-testid="callout-section">
-            <div className="w-full flex justify-center py-24 xl:py-28">
+            <div className="w-full flex justify-center py-12">
                 <Title text="Lorem Ipsum"/>
             </div>
             <div className="w-full h-[calc(100vh-8rem)]" data-testid="video-container">

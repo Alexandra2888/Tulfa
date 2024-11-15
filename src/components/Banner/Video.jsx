@@ -1,68 +1,49 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from 'react';
+import { S3_CONFIG } from "../../config/bannerConfig.js";
 
-const Video = ({ videoRef, showIntroducing, fallbackVideoUrl }) => {
+const Video = () => {
+  const videoRef = useRef(null);
+
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-    let ticking = false;
+    const videoElement = videoRef.current;
 
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          if (!videoRef.current) return;
-
-          const currentScrollY = window.scrollY;
-          const scrollingDown = currentScrollY > lastScrollY;
-
-          if (scrollingDown) {
-            videoRef.current.pause();
-          } else {
-            videoRef.current.play().catch((error) => {
-              console.log("Video play failed:", error);
-            });
-          }
-
-          lastScrollY = currentScrollY;
-          ticking = false;
-        });
-
-        ticking = true;
-      }
+    const handleIntersection = (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          videoElement.play();
+        } else {
+          videoElement.pause();
+        }
+      });
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    const observer = new IntersectionObserver(handleIntersection, {
+      threshold: 1
+    });
 
-    if (videoRef.current) {
-      videoRef.current.play().catch((error) => {
-        console.log("Initial video play failed:", error);
-      });
+    if (videoElement) {
+      observer.observe(videoElement);
     }
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      if (videoElement) {
+        observer.unobserve(videoElement);
+      }
     };
-  }, [videoRef]);
+  }, []);
 
   return (
-    <div className="relative w-full h-full" data-testid="video-container">
       <video
-        ref={videoRef}
-        className="w-full h-full object-cover"
-        playsInline
-        muted
-        autoPlay
-        loop
-        data-testid="video-element"
-        style={{
-          opacity: showIntroducing ? 0 : 1,
-          transition: "opacity 0.5s ease-in-out",
-          display: "block",
-          minHeight: "100vh",
-        }}
+          ref={videoRef}
+          autoPlay={true}
+          className="w-full h-full object-cover"
+          playsInline
+          muted
+          loop
+          data-testid="video-element"
       >
-        <source src={fallbackVideoUrl} type="video/mp4" />
-        Your browser does not support the video tag.
+        <source src={S3_CONFIG.fallbackVideoUrl} type="video/mp4" />
       </video>
-    </div>
   );
 };
 
